@@ -28,8 +28,12 @@ shape = SubResource("CapsuleShape3D_43faq")
 [node name="CameraThirdPerson" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.908216, 0)
 script = ExtResource("2_nv47o")
+topDown_angle = Vector3(-0.665, -2.51, 0)
+platform_angle = Vector3(0, -1.5, 0)
 
-[node name="SpringArm" type="SpringArm3D" parent="CameraThirdPerson"]
+[node name="Pivot" type="Node3D" parent="CameraThirdPerson"]
+
+[node name="SpringArm" type="SpringArm3D" parent="CameraThirdPerson/Pivot"]
 spring_length = 4.0
 
-[node name="Camera3D" type="Camera3D" parent="CameraThirdPerson/SpringArm"]
+[node name="Camera3D" type="Camera3D" parent="CameraThirdPerson/Pivot/SpringArm"]
