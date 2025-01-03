@@ -8,9 +8,9 @@ enum GameplayMode {
 	TopDown,
 	Platform
 }
-@export var mouse_sens:float = 0.4
+@export var mouse_sens:float = 0.4 ## Mouse Sensibility
 @export_group("Whatever")
-@export var can_move_mouse:bool = true
+@export var can_move_mouse:bool = true ## Player can use? Made to assist in cutscenes and the like.
 
 @export_group("Perspective Positions")
 @export var topDown_angle:Vector3
@@ -27,13 +27,13 @@ func _input(event):
 		pivot.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
 		pivot.rotation.x = clamp(pivot.rotation.x, -PI/3, PI/3) # Limits camera rotation
 		
-	if event.is_action_released("change_camera"):
+	if event.is_action_released("change_camera"): # to change the perpesctive
 		pespective_index += 1
 		if pespective_index > (GameplayMode.size() - 1):
 			pespective_index = 0
 
 func _physics_process(delta: float) -> void:
-	print("Pivot: ", pivot.rotation)
+	#print("Pivot: ", pivot.rotation) # Testing
 	match pespective_index:
 		GameplayMode.ThirdPerson:
 			can_move_mouse = true
