@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://bgkylmplw147w"]
+
+[ext_resource type="PackedScene" uid="uid://cclpe7ls5xy0h" path="res://assets/prefabs/actors/player/obj_player.tscn" id="1_nw8pi"]
+[ext_resource type="Texture2D" uid="uid://dbicpr6to6lin" path="res://assets/textures/GroundPrototype/Dark/texture_08.png" id="2_r4u2a"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_eg6gj"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7sghu"]
+albedo_texture = ExtResource("2_r4u2a")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_8nnp5"]
+data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hwnxx"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_fhhcq"]
+sky_material = SubResource("ProceduralSkyMaterial_hwnxx")
+
+[sub_resource type="Environment" id="Environment_ufpd0"]
+background_mode = 2
+sky = SubResource("Sky_fhhcq")
+tonemap_mode = 2
+
+[node name="world_test" type="Node3D"]
+
+[node name="actors" type="Node" parent="."]
+
+[node name="obj_player" parent="actors" instance=ExtResource("1_nw8pi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="map" type="Node" parent="."]
+
+[node name="plane" type="MeshInstance3D" parent="map"]
+mesh = SubResource("PlaneMesh_eg6gj")
+surface_material_override/0 = SubResource("StandardMaterial3D_7sghu")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="map/plane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="map/plane/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_8nnp5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ufpd0")

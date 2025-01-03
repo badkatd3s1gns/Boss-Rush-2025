@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cclpe7ls5xy0h"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/actors/player/obj_player.gd" id="1_hi8tb"]
+[ext_resource type="Script" path="res://scripts/core/systems/CameraController/CameraThirdPerson.gd" id="2_nv47o"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3awks"]
+radius = 0.28
+
+[sub_resource type="BoxMesh" id="BoxMesh_whjaw"]
+size = Vector3(0.44, 0.44, 0.44)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43faq"]
+radius = 0.28
+
+[node name="obj_player" type="CharacterBody3D"]
+script = ExtResource("1_hi8tb")
+
+[node name="model" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_3awks")
+
+[node name="head_model" type="MeshInstance3D" parent="model"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0209645, 0.546871, -0.339458)
+mesh = SubResource("BoxMesh_whjaw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_43faq")
+
+[node name="CameraThirdPerson" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.908216, 0)
+script = ExtResource("2_nv47o")
+
+[node name="SpringArm" type="SpringArm3D" parent="CameraThirdPerson"]
+spring_length = 4.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraThirdPerson/SpringArm"]
