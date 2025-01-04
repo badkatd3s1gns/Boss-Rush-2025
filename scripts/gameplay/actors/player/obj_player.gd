@@ -19,7 +19,7 @@ var motion = Vector3.ZERO
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
-func movement_controller(delta):
+func _process(delta): #func movement_controller(delta):
 	if CAN_MOVE:
 		# Direction of movement based on player direction
 		move_dir = Vector3(
@@ -28,10 +28,10 @@ func movement_controller(delta):
 			Input.get_action_strength("m_backward") - Input.get_action_strength("m_forward")
 		).normalized()
 		
-		move_dir = move_dir.rotated(Vector3.UP, $CameraThirdPerson/SpringArm.rotation.y)
+		move_dir = move_dir.rotated(Vector3.UP, $CameraThirdPerson/Pivot/SpringArm.rotation.y)
 		
-		if Input.is_action_just_pressed("player_jump") && is_on_floor():
-			velocity.y += JUMP_FORCE
+		#if Input.is_action_just_pressed("player_jump") && is_on_floor():
+			#velocity.y += JUMP_FORCE
 			
 		# Rotates the mesh in the direction of movement with a smooth transition
 		if move_dir.length() > 0.1:
@@ -54,3 +54,9 @@ func movement_controller(delta):
 		# Applie Gravity
 		if GRAVITY_ON and not is_on_floor():
 			velocity.y -= 9.8 * delta
+	
+	
+# I didn't know you could do this, assigning a function to a variable	
+#func _test():
+	#var hello = func test_2():
+		#pass

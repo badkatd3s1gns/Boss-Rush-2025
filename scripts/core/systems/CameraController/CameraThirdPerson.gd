@@ -18,7 +18,7 @@ enum GameplayMode {
 
 var pespective_index:int = 0
 
-func _ready() -> void:
+func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
@@ -29,20 +29,21 @@ func _input(event):
 		
 	if event.is_action_released("change_camera"): # to change the perpesctive
 		pespective_index += 1
-		if pespective_index > (GameplayMode.size() - 1):
+		print(pespective_index) # 1 2 3 for perspectives
+		if pespective_index > (GameplayMode.size() - 1): # if bigger than 2
 			pespective_index = 0
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta):
 	#print("Pivot: ", pivot.rotation) # Testing
 	match pespective_index:
-		GameplayMode.ThirdPerson:
+		GameplayMode.ThirdPerson: # 0 
 			can_move_mouse = true
 			pivot.rotation.y = 0
 			pivot.rotation.z = 0
-		GameplayMode.TopDown:
+		GameplayMode.TopDown: # 1
 			can_move_mouse = false
 			transition_pespective(topDown_angle)
-		GameplayMode.Platform:
+		GameplayMode.Platform: # 2
 			can_move_mouse = false
 			transition_pespective(platform_angle)
 
@@ -53,8 +54,9 @@ func transition_pespective(to:Vector3):
 	self.rotation.y = 0
 	
 	tween.tween_property(
-		pivot, "rotation", to, 0.3
+		pivot, "rotation", to, 0.3 # The "to" here is the variable in the function (final value)
 	)
 	
+	# For this stuff, its honestly just playing around with tween properties for animations
 	Tween.TransitionType.TRANS_SINE
 	Tween.EaseType.EASE_IN_OUT
