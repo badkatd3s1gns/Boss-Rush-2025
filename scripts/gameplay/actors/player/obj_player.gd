@@ -10,13 +10,14 @@ enum GameplayMode {
 }
 
 @export_group("Player")
-@export var SPEED_WALK = 4
-@export var SPEED_RUN = 6
+@export var SPEED_WALK:int = 4
+@export var SPEED_RUN:int = 6
+@export var JUMP_FORCE:int = 5
 var SPEED_ACCEL = 30
 
 @export_group("Flags")
 @export var CAN_MOVE:bool = true
-@export var CAN_RUN = true
+@export var CAN_RUN:bool = true
 @export var GRAVITY_ON:bool = true
 
 var move_dir = Vector3.ZERO
@@ -25,15 +26,17 @@ var motion = Vector3.ZERO
 func _physics_process(delta: float) -> void: #func movement_controller(delta):
 	match camera_controller.gameplay_index:
 		GameplayMode.ThirdPerson:
+			CAN_MOVE = true
 			thirdPerson_movement(delta)
 		GameplayMode.TopDown:
 			CAN_MOVE = false
 		GameplayMode.Platform:
+			CAN_MOVE = true
 			platform_movement(delta)
 	
 	# Player Movement
 	if CAN_MOVE:
-		if Input.get_action_strength("player_run") && Input.get_action_strength("m_forward") && CAN_RUN:
+		if Input.get_action_strength("action_run") && Input.get_action_strength("m_forward") && CAN_RUN:
 			velocity.x = lerp(velocity.x, move_dir.x * SPEED_RUN, SPEED_ACCEL * delta)
 			velocity.z = lerp(velocity.z, move_dir.z * SPEED_RUN, SPEED_ACCEL * delta)
 		else:
@@ -77,6 +80,9 @@ func platform_movement(delta:float) -> void: # (3) Smash Bros Movement
 	if move_dir.length() > 0.1:
 		var target_rotation = atan2(-move_dir.x, -move_dir.z)
 		mesh.rotation.y = lerp_angle(mesh.rotation.y, target_rotation, 5.0 * delta)
+		
+	if Input.is_action_just_pressed("action_jump") and is_on_floor():
+		velocity.y = JUMP_FORCE
 		
 # I didn't know you could do this, assigning a function to a variable
 # a6x: amazing
