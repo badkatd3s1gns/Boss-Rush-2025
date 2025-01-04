@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void: #func movement_controller(delta):
 		GameplayMode.ThirdPerson:
 			thirdPerson_movement(delta)
 		GameplayMode.TopDown:
-			topDown_movement(delta)
+			CAN_MOVE = false
 		GameplayMode.Platform:
 			platform_movement(delta)
 	
@@ -62,18 +62,6 @@ func thirdPerson_movement(delta:float) -> void: # (1) Soulslike Movement
 	move_dir = move_dir.rotated(Vector3.UP, camera_rotation_y)
 		
 	# Rotates the mesh in the direction of movement with a smooth transition
-	if move_dir.length() > 0.1:
-		var target_rotation = atan2(-move_dir.x, -move_dir.z)
-		mesh.rotation.y = lerp_angle(mesh.rotation.y, target_rotation, 5.0 * delta)
-
-# //////////////////////////////////////////////////////////
-func topDown_movement(delta:float) -> void: # (2) RPG Movement
-	move_dir = Vector3(
-		Input.get_action_strength("m_left") - Input.get_action_strength("m_right"),
-		0.0,
-		Input.get_action_strength("m_forward") - Input.get_action_strength("m_backward")
-	).normalized()
-
 	if move_dir.length() > 0.1:
 		var target_rotation = atan2(-move_dir.x, -move_dir.z)
 		mesh.rotation.y = lerp_angle(mesh.rotation.y, target_rotation, 5.0 * delta)
