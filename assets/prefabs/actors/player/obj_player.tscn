@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cclpe7ls5xy0h"]
 
 [ext_resource type="Script" path="res://scripts/gameplay/actors/player/obj_player.gd" id="1_hi8tb"]
-[ext_resource type="Script" path="res://scripts/core/systems/CameraController/CameraThirdPerson.gd" id="2_nv47o"]
+[ext_resource type="Script" path="res://scripts/core/systems/CameraController/CameraController.gd" id="2_nv47o"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3awks"]
 radius = 0.28
@@ -25,15 +25,15 @@ mesh = SubResource("BoxMesh_whjaw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_43faq")
 
-[node name="CameraThirdPerson" type="Node3D" parent="."]
+[node name="CameraController" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.908216, 0)
 script = ExtResource("2_nv47o")
 topDown_angle = Vector3(-0.665, -2.51, 0)
 platform_angle = Vector3(0, -1.5, 0)
 
-[node name="Pivot" type="Node3D" parent="CameraThirdPerson"]
+[node name="Pivot" type="Node3D" parent="CameraController"]
 
-[node name="SpringArm" type="SpringArm3D" parent="CameraThirdPerson/Pivot"]
+[node name="SpringArm" type="SpringArm3D" parent="CameraController/Pivot"]
 spring_length = 4.0
 
-[node name="Camera3D" type="Camera3D" parent="CameraThirdPerson/Pivot/SpringArm"]
+[node name="Camera3D" type="Camera3D" parent="CameraController/Pivot/SpringArm"]

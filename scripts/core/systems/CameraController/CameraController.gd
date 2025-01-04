@@ -2,12 +2,8 @@ extends Node3D
 
 @onready var pivot: Node3D = $Pivot
 @onready var spring_arm: SpringArm3D = $Pivot/SpringArm
+@onready var mom: CharacterBody3D = $".."
 
-enum GameplayMode {
-	ThirdPerson,
-	TopDown,
-	Platform
-}
 @export var mouse_sens:float = 0.4 ## Mouse Sensibility
 @export_group("Whatever")
 @export var can_move_mouse:bool = true ## Player can use? Made to assist in cutscenes and the like.
@@ -16,7 +12,7 @@ enum GameplayMode {
 @export var topDown_angle:Vector3
 @export var platform_angle:Vector3
 
-var pespective_index:int = 0
+var gameplay_index:int = 0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -28,22 +24,22 @@ func _input(event):
 		pivot.rotation.x = clamp(pivot.rotation.x, -PI/3, PI/3) # Limits camera rotation
 		
 	if event.is_action_released("change_camera"): # to change the perpesctive
-		pespective_index += 1
-		print(pespective_index) # 1 2 3 for perspectives
-		if pespective_index > (GameplayMode.size() - 1): # if bigger than 2
-			pespective_index = 0
+		gameplay_index += 1
+		print(gameplay_index) # 1 2 3 for perspectives
+		if gameplay_index > (mom.GameplayMode.size() - 1): # if bigger than 2
+			gameplay_index = 0
 
 func _physics_process(delta):
 	#print("Pivot: ", pivot.rotation) # Testing
-	match pespective_index:
-		GameplayMode.ThirdPerson: # 0 
+	match gameplay_index:
+		mom.GameplayMode.ThirdPerson: # 0 
 			can_move_mouse = true
 			pivot.rotation.y = 0
 			pivot.rotation.z = 0
-		GameplayMode.TopDown: # 1
+		mom.GameplayMode.TopDown: # 1
 			can_move_mouse = false
 			transition_pespective(topDown_angle)
-		GameplayMode.Platform: # 2
+		mom.GameplayMode.Platform: # 2
 			can_move_mouse = false
 			transition_pespective(platform_angle)
 
