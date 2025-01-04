@@ -19,8 +19,37 @@ var motion = Vector3.ZERO
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+#func _physics_process(_delta):
+	#
+	#if Input.is_action_pressed("escape"):
+		#get_tree().change_scene_to_file("res://scenes/level.tscn")
+#
+	#var input_dir := Input.get_vector("left", "right", "up", "down")
+	#var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	#
+	#if direction:
+		#velocity.x = direction.x * SPEED
+		#velocity.z = direction.z * SPEED
+	#else:
+		#velocity.x = move_toward(velocity.x, 0, SPEED)
+		#velocity.z = move_toward(velocity.z, 0, SPEED)
+
+	#move_and_slide()
+
+func _input(event):
+	if event is InputEventKey and event.pressed:
+		print("Key Pressed: ", event.as_text())
+
 func movement_controller(delta):
 	if CAN_MOVE:
+		print("Input Strengths: ",
+			"Right: ", Input.get_action_strength("m_right"),
+			"Left: ", Input.get_action_strength("m_left"),
+			#"Forward: ", 0.0,
+			"Backwards: ", Input.get_action_strength("m_backward"), 
+			"Forward: ", Input.get_action_strength("m_forward")
+		)
+		
 		# Direction of movement based on player direction
 		move_dir = Vector3(
 			Input.get_action_strength("m_right") - Input.get_action_strength("m_left"),
@@ -48,9 +77,9 @@ func movement_controller(delta):
 		else:
 			velocity.x = lerp(velocity.x, move_dir.x * SPEED_WALK, SPEED_ACCEL * delta)
 			velocity.z = lerp(velocity.z, move_dir.z * SPEED_WALK, SPEED_ACCEL * delta)
-				
 		move_and_slide()
 		
 		# Applie Gravity
 		if GRAVITY_ON and not is_on_floor():
 			velocity.y -= 9.8 * delta
+			

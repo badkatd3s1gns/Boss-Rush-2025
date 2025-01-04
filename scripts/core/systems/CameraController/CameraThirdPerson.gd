@@ -1,9 +1,10 @@
 extends Node3D
 
 @onready var spring_arm: SpringArm3D = $SpringArm
-@onready var platform_camera: Camera3D = $PlatformCamera
+# @onready var platform_camera: Camera3D = $PlatformCamera
 
 @export var gameplay_mode:Mode
+
 enum Mode {
 	ThirdPerson,
 	TopDown,
@@ -12,7 +13,7 @@ enum Mode {
 @export var can_move_mouse:bool = true
 @export var mouse_sens:float = 0.4
 
-func _ready() -> void:
+func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
