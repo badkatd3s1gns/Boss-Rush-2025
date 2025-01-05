@@ -45,14 +45,13 @@ func _physics_process(delta):
 
 func transition_pespective(to:Vector3):
 	var tween = create_tween()
-	
 	pivot.rotation = Vector3.ZERO
 	self.rotation.y = 0
 	
 	tween.tween_property(
 		pivot, "rotation", to, 0.3 # The "to" here is the variable in the function (final value)
 	)
-	
-	# For this stuff, its honestly just playing around with tween properties for animations
 	Tween.TransitionType.TRANS_SINE
 	Tween.EaseType.EASE_IN_OUT
+	
+	# For this stuff, its honestly just playing around with tween properties for animations
