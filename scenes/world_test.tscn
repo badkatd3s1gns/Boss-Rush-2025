@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgkylmplw147w"]
+[gd_scene load_steps=11 format=3 uid="uid://bgkylmplw147w"]
 
 [ext_resource type="PackedScene" uid="uid://cclpe7ls5xy0h" path="res://assets/prefabs/actors/player/obj_player.tscn" id="1_nw8pi"]
 [ext_resource type="PackedScene" uid="uid://d05k1ow1pfck6" path="res://assets/prefabs/actors/obj_dummy.tscn" id="2_gtp3p"]
 [ext_resource type="Texture2D" uid="uid://dbicpr6to6lin" path="res://assets/textures/GroundPrototype/Dark/texture_08.png" id="2_r4u2a"]
+[ext_resource type="Script" path="res://scripts/core/WorldManager.gd" id="4_33dek"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_eg6gj"]
 size = Vector2(100, 100)
@@ -25,7 +26,6 @@ sky_material = SubResource("ProceduralSkyMaterial_hwnxx")
 [sub_resource type="Environment" id="Environment_ufpd0"]
 background_mode = 2
 sky = SubResource("Sky_fhhcq")
-tonemap_mode = 2
 
 [node name="world_test" type="Node3D"]
 
@@ -70,6 +70,12 @@ size = Vector3(3, 6.04346, 3)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
+
+[node name="WorldManager" type="Node" parent="."]
+script = ExtResource("4_33dek")
+
+[node name="SpawnPoint" type="Marker3D" parent="WorldManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 4, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ufpd0")
