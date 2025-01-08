@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cclpe7ls5xy0h"]
+[gd_scene load_steps=25 format=4 uid="uid://cclpe7ls5xy0h"]
 
 [ext_resource type="Script" path="res://scripts/gameplay/actors/player/obj_player.gd" id="1_hi8tb"]
 [ext_resource type="Script" path="res://scripts/core/systems/CameraController/CameraController.gd" id="2_nv47o"]
@@ -6,7 +6,9 @@
 [ext_resource type="ArrayMesh" uid="uid://dpdqfg71uju2r" path="res://assets/models/character/recentrunes/recentrunes.obj" id="3_soo0t"]
 [ext_resource type="Script" path="res://scripts/gameplay/actors/player/state_machine/third_person.gd" id="4_anffb"]
 [ext_resource type="Script" path="res://scripts/gameplay/actors/player/state_machine/platform.gd" id="5_5jxej"]
+[ext_resource type="Script" path="res://scripts/gameplay/actors/player/state_machine/top_down.gd" id="7_4cql4"]
 [ext_resource type="Script" path="res://scripts/core/systems/CombatSystem/AttackResource.gd" id="7_oloiw"]
+[ext_resource type="Script" path="res://scripts/core/systems/InterfaceController.gd" id="9_5621u"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_554eb"]
 
@@ -201,6 +203,7 @@ _data = {
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43faq"]
 radius = 0.28
+height = 1.75471
 
 [sub_resource type="Animation" id="Animation_7mxx3"]
 length = 0.001
@@ -228,6 +231,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/SpringArm/Camera3D:fov")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [75.0]
+}
 
 [sub_resource type="Animation" id="Animation_e83kh"]
 resource_name = "player_aiming"
@@ -235,7 +250,7 @@ length = 0.3
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("Pivot/SpringArm:spring_length")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -257,11 +272,40 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0.697, 0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/SpringArm/Camera3D:fov")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [75.0, 40.0]
+}
+
+[sub_resource type="Animation" id="Animation_y4ba0"]
+resource_name = "topDownFov"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/SpringArm/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [75.0, 90.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4l4ty"]
 _data = {
 "RESET": SubResource("Animation_7mxx3"),
-"player_aiming": SubResource("Animation_e83kh")
+"player_aiming": SubResource("Animation_e83kh"),
+"topDownFov": SubResource("Animation_y4ba0")
 }
 
 [sub_resource type="Resource" id="Resource_74ewt"]
@@ -298,19 +342,27 @@ skeleton = NodePath("")
 [node name="attack_collision" parent="model/weapons/hammer_prototype" instance=ExtResource("3_20ovq")]
 monitoring = false
 
+[node name="EnemyDetection" type="RayCast3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.908, 0)
+target_position = Vector3(0, 0, -4)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="model"]
 libraries = {
 "": SubResource("AnimationLibrary_rmytq")
 }
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.167904, 0)
 shape = SubResource("CapsuleShape3D_43faq")
 
 [node name="CameraController" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.908216, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.908, 0)
 script = ExtResource("2_nv47o")
-topDown_angle = Vector3(-0.665, -2.51, 0)
+topDown_angle = Vector3(-0.665, -1.13, 0)
 platform_angle = Vector3(0, -1.5, 0)
+
+[node name="PlatformCamera" type="Camera3D" parent="CameraController"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.017, 0, 0)
 
 [node name="Pivot" type="Node3D" parent="CameraController"]
 
@@ -318,6 +370,8 @@ platform_angle = Vector3(0, -1.5, 0)
 spring_length = 4.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraController/Pivot/SpringArm"]
+current = true
+near = 0.001
 
 [node name="Aim" type="Marker3D" parent="CameraController/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.21832)
@@ -327,18 +381,27 @@ libraries = {
 "": SubResource("AnimationLibrary_4l4ty")
 }
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node3D" parent="."]
 
-[node name="ThirdPerson" type="Node" parent="StateMachine"]
+[node name="ThirdPerson" type="Node3D" parent="StateMachine"]
 script = ExtResource("4_anffb")
+JUMP_FORCE = 8
 attacks = Array[ExtResource("7_oloiw")]([SubResource("Resource_74ewt"), SubResource("Resource_sf05y")])
 
-[node name="TopDown" type="Node" parent="StateMachine"]
+[node name="TopDown" type="Node3D" parent="StateMachine"]
+script = ExtResource("7_4cql4")
 
-[node name="Platform" type="Node" parent="StateMachine"]
+[node name="EnemyMarked" type="Marker3D" parent="StateMachine/TopDown"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.84444)
+
+[node name="Platform" type="Node3D" parent="StateMachine"]
 script = ExtResource("5_5jxej")
+attacks = Array[ExtResource("7_oloiw")]([SubResource("Resource_74ewt"), SubResource("Resource_sf05y")])
 
 [node name="WeaponSwitcher" type="Node" parent="."]
+
+[node name="InterfaceController" type="Node" parent="."]
+script = ExtResource("9_5621u")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -347,5 +410,56 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TopDownUI" type="Control" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 474.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/TopDownUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 46.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="ATTACK" type="Button" parent="UI/TopDownUI/HBoxContainer"]
+layout_mode = 2
+text = "ATTACK"
+
+[node name="DEFENSE" type="Button" parent="UI/TopDownUI/HBoxContainer"]
+layout_mode = 2
+text = "DEFENSE"
+
+[node name="DODGE" type="Button" parent="UI/TopDownUI/HBoxContainer"]
+layout_mode = 2
+text = "DODGE
+"
+
+[node name="Debug" type="Control" parent="UI"]
+anchors_preset = 0
+offset_right = 685.0
+offset_bottom = 212.0
+
+[node name="BoxContainer" type="VBoxContainer" parent="UI/Debug"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FPS" type="Label" parent="UI/Debug/BoxContainer"]
+layout_mode = 2
 
 [connection signal="animation_finished" from="model/AnimationPlayer" to="StateMachine/ThirdPerson" method="_animation_finished"]

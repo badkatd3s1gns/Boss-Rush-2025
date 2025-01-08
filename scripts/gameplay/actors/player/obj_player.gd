@@ -34,6 +34,8 @@ var is_dodging:bool = false
 var dodge_timer:float = 0
 var dodge_duration:int = 1
 
+var enemy_focus = null
+
 func _ready() -> void:
 	UserGlobal.PLAYER = self
 
@@ -57,6 +59,7 @@ func _physics_process(delta: float) -> void:
 			$StateMachine/ThirdPerson.start(delta)
 		GameplayMode.TopDown:
 			CAN_MOVE = false
+			$StateMachine/TopDown.start(delta)
 		GameplayMode.Platform:
 			CAN_MOVE = true
 			$StateMachine/Platform.start(delta)
@@ -102,3 +105,4 @@ func player_damage(num:int) -> void:
 #func _test():
 	#var hello = func test_2():
 		#pass
+	

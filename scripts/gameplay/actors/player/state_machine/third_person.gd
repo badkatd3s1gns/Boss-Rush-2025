@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 
 @onready var dad: CharacterBody3D = $"../.."
 @onready var animation_player: AnimationPlayer = $"../../model/AnimationPlayer"
@@ -14,7 +14,6 @@ var is_attacking:bool = false
 func start(delta:float):
 	movement_controller(delta)
 	CombatSystem()
-
 
 # //////////////////////////////////////////////////////////
 # //////////////////// CONTROLLERS /////////////////////////
@@ -57,7 +56,7 @@ func movement_controller(delta):
 		
 	# Soulslike Gravity
 	if dad.GRAVITY_ON and not dad.is_on_floor():
-		dad.velocity.y -= 9.8 * delta
+		dad.velocity.y -= (9.8 * 2) * delta
 
 # //////////////////////////////////////////////////////////
 # ///////////////////// MECHANICS //////////////////////////

@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bgkylmplw147w"]
+[gd_scene load_steps=10 format=3 uid="uid://bgkylmplw147w"]
 
 [ext_resource type="PackedScene" uid="uid://cclpe7ls5xy0h" path="res://assets/prefabs/actors/player/obj_player.tscn" id="1_nw8pi"]
-[ext_resource type="PackedScene" uid="uid://d05k1ow1pfck6" path="res://assets/prefabs/actors/obj_dummy.tscn" id="2_gtp3p"]
 [ext_resource type="Texture2D" uid="uid://dbicpr6to6lin" path="res://assets/textures/GroundPrototype/Dark/texture_08.png" id="2_r4u2a"]
 [ext_resource type="Script" path="res://scripts/core/WorldManager.gd" id="4_33dek"]
 
@@ -33,8 +32,6 @@ sky = SubResource("Sky_fhhcq")
 
 [node name="obj_player" parent="actors" instance=ExtResource("1_nw8pi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="obj_dummy" parent="actors" instance=ExtResource("2_gtp3p")]
 
 [node name="map" type="Node" parent="."]
 
@@ -75,7 +72,7 @@ shadow_enabled = true
 script = ExtResource("4_33dek")
 
 [node name="SpawnPoint" type="Marker3D" parent="WorldManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ufpd0")
