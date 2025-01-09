@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var dad: CharacterBody3D = $"../.."
 @onready var animation_player: AnimationPlayer = $"../../model/AnimationPlayer"
+@onready var weapon_switcher: Node = $"../../WeaponSwitcher"
 
 @export var JUMP_FORCE:int = 5
 
@@ -63,22 +64,36 @@ func movement_controller(delta):
 # //////////////////////////////////////////////////////////
 func CombatSystem() -> void:
 	if dad.is_aiming:
-		if Input.is_action_just_pressed("action_attack") && not animation_player.is_playing():
-			var i = attacks[attack_index]
+		if Input.is_action_just_pressed("action_attack") and not animation_player.is_playing():
+			var attack = attacks[attack_index]
+			var weapon_type = weapon_switcher.get_current_weapon_type()
+			var found_valid_attack = false
 			
-			if not is_attacking:
-				animation_player.play(i.animation)
-				attack_index += 1
+			for i in range(attack_index, attack_index + attacks.size()):
+				var index = i % attacks.size() # Allow the index to "rotate" in the array
 				
-			if attack_index >= attacks.size():
+				# Checks if the attack is compatible with the current weapon
+				if attack[weapon_type]:
+					animation_player.play(attack.animation)
+					attack_index = (index + 1) % attacks.size()
+					found_valid_attack = true
+					break
+			
+			if not found_valid_attack:
 				attack_index = 0
-				
-	if Input.is_action_pressed("action_defend") and dad.is_aiming:
-		if not dad.is_defending:
-			animation_player.play("defending")
-			dad.is_defending = true
-	else:
-		dad.is_defending = false
+		
+		# Defense
+		if Input.is_action_pressed("action_defend") and dad.is_aiming:
+			if not dad.is_defending:
+				animation_player.play("defending")
+				dad.is_defending = true
+		else:
+			dad.is_defending = false
+
+func is_valid_weapon(attack: AttackResource, weapon_node: Node) -> bool:
+	var weapon_type = weapon_node.name.to_lower()
+	return (attack.hammer and weapon_type == "hammer") or (attack.greatsword and weapon_type == "greatsword") or (attack.guns and weapon_type == "guns") or (attack.guitar and weapon_type == "guitar")
+
 # //////////////////////////////////////////////////////////
 # ////////////////////// SIGNALS ///////////////////////////
 # //////////////////////////////////////////////////////////
