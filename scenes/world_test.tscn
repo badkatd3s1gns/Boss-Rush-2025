@@ -1,8 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgkylmplw147w"]
+[gd_scene load_steps=12 format=3 uid="uid://bgkylmplw147w"]
 
 [ext_resource type="PackedScene" uid="uid://cclpe7ls5xy0h" path="res://assets/prefabs/actors/player/obj_player.tscn" id="1_nw8pi"]
+[ext_resource type="PackedScene" uid="uid://c46rl2emo65ph" path="res://assets/prefabs/actors/bosses/obj_bigCube.tscn" id="2_58wxk"]
 [ext_resource type="Texture2D" uid="uid://dbicpr6to6lin" path="res://assets/textures/GroundPrototype/Dark/texture_08.png" id="2_r4u2a"]
 [ext_resource type="Script" path="res://scripts/core/WorldManager.gd" id="4_33dek"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_dutm7"]
+vertices = PackedVector3Array(-49.5, 0.5, -49.5, -49.5, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, -49.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+agent_height = 10.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_eg6gj"]
 size = Vector2(100, 100)
@@ -33,16 +39,10 @@ sky = SubResource("Sky_fhhcq")
 [node name="obj_player" parent="actors" instance=ExtResource("1_nw8pi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
+[node name="obj_BigCube" parent="actors" instance=ExtResource("2_58wxk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.2326, 4, 0)
+
 [node name="map" type="Node" parent="."]
-
-[node name="plane" type="MeshInstance3D" parent="map"]
-mesh = SubResource("PlaneMesh_eg6gj")
-surface_material_override/0 = SubResource("StandardMaterial3D_7sghu")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="map/plane"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="map/plane/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_8nnp5")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -16.5574)
@@ -63,6 +63,19 @@ size = Vector3(3, 5.68994, 3)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.38455, 3.02173, -16.5574)
 use_collision = true
 size = Vector3(3, 6.04346, 3)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="map"]
+navigation_mesh = SubResource("NavigationMesh_dutm7")
+
+[node name="plane" type="MeshInstance3D" parent="map/NavigationRegion3D"]
+mesh = SubResource("PlaneMesh_eg6gj")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7sghu")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="map/NavigationRegion3D/plane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="map/NavigationRegion3D/plane/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_8nnp5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
