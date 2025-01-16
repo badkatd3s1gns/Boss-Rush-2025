@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://cclpe7ls5xy0h"]
+[gd_scene load_steps=36 format=4 uid="uid://cclpe7ls5xy0h"]
 
 [ext_resource type="Script" path="res://scripts/gameplay/actors/player/obj_player.gd" id="1_hi8tb"]
 [ext_resource type="Script" path="res://scripts/core/systems/CameraController/CameraController.gd" id="2_nv47o"]
@@ -245,9 +245,7 @@ _data = {
 "defending": SubResource("Animation_fvfci")
 }
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43faq"]
-radius = 0.28
-height = 1.75471
+[sub_resource type="SphereMesh" id="SphereMesh_6xe7t"]
 
 [sub_resource type="Animation" id="Animation_7mxx3"]
 length = 0.001
@@ -382,6 +380,10 @@ greatsword = true
 guns = false
 guitar = true
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43faq"]
+radius = 0.28
+height = 1.75471
+
 [node name="obj_player" type="CharacterBody3D"]
 script = ExtResource("1_hi8tb")
 
@@ -438,9 +440,22 @@ libraries = {
 "": SubResource("AnimationLibrary_rmytq")
 }
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.167904, 0)
-shape = SubResource("CapsuleShape3D_43faq")
+[node name="BossCombatSystem" type="Node3D" parent="model"]
+
+[node name="CIRCLE_STATE" type="Node3D" parent="model/BossCombatSystem"]
+
+[node name="MarkerRight" type="Marker3D" parent="model/BossCombatSystem/CIRCLE_STATE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="model/BossCombatSystem/CIRCLE_STATE/MarkerRight"]
+mesh = SubResource("SphereMesh_6xe7t")
+
+[node name="MarkerLeft" type="Marker3D" parent="model/BossCombatSystem/CIRCLE_STATE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="model/BossCombatSystem/CIRCLE_STATE/MarkerLeft"]
+mesh = SubResource("SphereMesh_6xe7t")
+skeleton = NodePath("../../MarkerRight")
 
 [node name="CameraController" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.908, 0)
@@ -490,6 +505,10 @@ script = ExtResource("9_kfggt")
 
 [node name="InterfaceController" type="Node" parent="."]
 script = ExtResource("9_5621u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.167904, 0)
+shape = SubResource("CapsuleShape3D_43faq")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

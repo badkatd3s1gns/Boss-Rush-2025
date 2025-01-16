@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name Player
 
 @onready var mesh: Node3D = $model
 @onready var camera_controller: Node3D = $CameraController
@@ -38,6 +39,8 @@ var enemy_focus = null
 
 func _ready() -> void:
 	UserGlobal.PLAYER = self
+	UserGlobal.CircleMarked.append($model/BossCombatSystem/CIRCLE_STATE/MarkerRight)
+	UserGlobal.CircleMarked.append($model/BossCombatSystem/CIRCLE_STATE/MarkerLeft)
 
 func _input(event: InputEvent) -> void:
 	if camera_controller.gameplay_index == 0:

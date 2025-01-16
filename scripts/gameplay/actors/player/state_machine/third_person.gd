@@ -63,24 +63,23 @@ func movement_controller(delta):
 # ///////////////////// MECHANICS //////////////////////////
 # //////////////////////////////////////////////////////////
 func CombatSystem() -> void:
-	if dad.is_aiming:
-		if Input.is_action_just_pressed("action_attack") and not animation_player.is_playing():
-			var attack = attacks[attack_index]
-			var weapon_type = weapon_switcher.get_current_weapon_type()
-			var found_valid_attack = false
+	if Input.is_action_just_pressed("action_attack") and not animation_player.is_playing():
+		var attack = attacks[attack_index]
+		var weapon_type = weapon_switcher.get_current_weapon_type()
+		var found_valid_attack = false
+		
+		for i in range(attack_index, attack_index + attacks.size()):
+			var index = i % attacks.size() # Allow the index to "rotate" in the array
 			
-			for i in range(attack_index, attack_index + attacks.size()):
-				var index = i % attacks.size() # Allow the index to "rotate" in the array
-				
-				# Checks if the attack is compatible with the current weapon
-				if attack[weapon_type]:
-					animation_player.play(attack.animation)
-					attack_index = (index + 1) % attacks.size()
-					found_valid_attack = true
-					break
-			
-			if not found_valid_attack:
-				attack_index = 0
+			# Checks if the attack is compatible with the current weapon
+			if attack[weapon_type]:
+				animation_player.play(attack.animation)
+				attack_index = (index + 1) % attacks.size()
+				found_valid_attack = true
+				break
+		
+		if not found_valid_attack:
+			attack_index = 0
 		
 		# Defense
 		if Input.is_action_pressed("action_defend") and dad.is_aiming:
