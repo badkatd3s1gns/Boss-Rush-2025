@@ -39,8 +39,6 @@ var enemy_focus = null
 
 func _ready() -> void:
 	UserGlobal.PLAYER = self
-	UserGlobal.CircleMarked.append($model/BossCombatSystem/CIRCLE_STATE/MarkerRight)
-	UserGlobal.CircleMarked.append($model/BossCombatSystem/CIRCLE_STATE/MarkerLeft)
 
 func _input(event: InputEvent) -> void:
 	if camera_controller.gameplay_index == 0:
