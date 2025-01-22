@@ -49,7 +49,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54526, 18.1314)
 
 [node name="obj_toadBoss" parent="actors" instance=ExtResource("2_nxtti")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, 0)
-current_state = 2
 
 [node name="map" type="Node" parent="."]
 

@@ -102,10 +102,5 @@ func movement_controller(delta:float):
 
 func player_damage(num:int) -> void:
 	player_health -= num
-	
-# I didn't know you could do this, assigning a function to a variable
-# a6x: amazing
-#func _test():
-	#var hello = func test_2():
-		#pass
+
 	
