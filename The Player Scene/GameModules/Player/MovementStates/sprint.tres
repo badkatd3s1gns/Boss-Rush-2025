@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MovementState" load_steps=2 format=3 uid="uid://ct8cqvtmfmok6"]
+
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Scripts/movement_state.gd" id="1_mqude"]
+
+[resource]
+script = ExtResource("1_mqude")
+id = 3
+movement_speed = 12.0
+acceleration = 4.0
+camera_fov = 85.0
+animation_speed = 1.0

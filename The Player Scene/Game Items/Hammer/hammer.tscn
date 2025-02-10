@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca85f1hgahog5"]
+
+[ext_resource type="PackedScene" uid="uid://c0e61ylwkx1wh" path="res://The Player Scene/Game Items/Hammer/hammer.glb" id="1_5lct5"]
+
+[node name="hammer" instance=ExtResource("1_5lct5")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)

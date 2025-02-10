@@ -1,5 +1,5 @@
 extends CharacterBody3D
-class_name Player
+#class_name Player
 
 @onready var mesh: Node3D = $model
 @onready var camera_controller: Node3D = $CameraController

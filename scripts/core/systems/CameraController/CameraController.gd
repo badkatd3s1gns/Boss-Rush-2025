@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var pivot: Node3D = $Pivot
 @onready var spring_arm: SpringArm3D = $Pivot/SpringArm
-@onready var mom: CharacterBody3D = $".."
+@onready var player: CharacterBody3D = $".."
 @onready var camera_3d: Camera3D = $Pivot/SpringArm/Camera3D
 @onready var enemy_detection: RayCast3D = $"../model/EnemyDetection"
 
@@ -32,20 +32,20 @@ func _input(event):
 	if event.is_action_released("change_camera"): # to change the perpesctive
 		gameplay_index += 1
 		print(gameplay_index) # 1 2 3 for perspectives
-		if gameplay_index > (mom.GameplayMode.size() - 1): # if bigger than 2
+		if gameplay_index > (player.GameplayMode.size() - 1): # if bigger than 2
 			gameplay_index = 0
 
 func _physics_process(delta):
 	#print("Pivot: ", pivot.rotation) # Testing
 	match gameplay_index:
-		mom.GameplayMode.ThirdPerson: # 0 
+		player.GameplayMode.ThirdPerson: # 0 
 			can_move_mouse = true
 			pivot.rotation.y = 0
 			pivot.rotation.z = 0
-		mom.GameplayMode.TopDown: # 1
+		player.GameplayMode.TopDown: # 1
 			can_move_mouse = false
 			transition_pespective(topDown_angle, false, 90)
-		mom.GameplayMode.Platform: # 2
+		player.GameplayMode.Platform: # 2
 			can_move_mouse = false
 			transition_pespective(platform_angle, true, 75)
 
@@ -53,7 +53,6 @@ func transition_pespective(to:Vector3, is_platform:bool, fov):
 	var tween = create_tween()
 	pivot.rotation = Vector3.ZERO
 	self.rotation.y = 0
-	mom.is_aiming = false
 	
 	tween.tween_property(
 		pivot, "rotation", to, 0.3
@@ -71,9 +70,9 @@ func transition_pespective(to:Vector3, is_platform:bool, fov):
 	# For this stuff, its honestly just playing around with tween properties for animations
 
 func _on_transition_finished():
-	if mom.GameplayMode.ThirdPerson or mom.GameplayMode.TopDown: # 0 
+	if player.GameplayMode.ThirdPerson or player.GameplayMode.TopDown: # 0 
 		$PlatformCamera.current = false
 		$Pivot/SpringArm/Camera3D.current = true
-	elif mom.GameplayMode.Platform: # 2
+	elif player.GameplayMode.Platform: # 2
 		$PlatformCamera.current = true
 		$Pivot/SpringArm/Camera3D.current = false

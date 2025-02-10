@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MovementState" load_steps=2 format=3 uid="uid://n3g23r4byeml"]
+
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Scripts/movement_state.gd" id="1_qorqa"]
+
+[resource]
+script = ExtResource("1_qorqa")
+id = 1
+movement_speed = 3.0
+acceleration = 7.0
+camera_fov = 72.5
+animation_speed = 1.15
