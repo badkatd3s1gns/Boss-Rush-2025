@@ -1,0 +1,39 @@
+[gd_resource type="Environment" load_steps=6 format=3 uid="uid://cqn2yjb6hhfvp"]
+
+[sub_resource type="Gradient" id="Gradient_seyy6"]
+colors = PackedColorArray(0, 0.4, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_s3gfk"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_su0ge"]
+seamless = true
+color_ramp = SubResource("Gradient_seyy6")
+noise = SubResource("FastNoiseLite_s3gfk")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_rsaa4"]
+panorama = SubResource("NoiseTexture2D_su0ge")
+
+[sub_resource type="Sky" id="Sky_o2014"]
+sky_material = SubResource("PanoramaSkyMaterial_rsaa4")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_o2014")
+ambient_light_source = 2
+ambient_light_color = Color(0.168627, 0.643137, 0.662745, 1)
+ambient_light_energy = 0.8
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+glow_bloom = 0.02
+fog_enabled = true
+fog_light_color = Color(0.576471, 0.690196, 0.698039, 1)
+fog_density = 0.0025
+fog_sky_affect = 0.0
+volumetric_fog_density = 0.0
+adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_contrast = 1.15
+adjustment_saturation = 1.25
