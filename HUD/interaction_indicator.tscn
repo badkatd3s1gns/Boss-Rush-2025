@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfm682e8vnvxi"]
+
+[ext_resource type="Script" path="res://HUD/interaction_indicator.gd" id="1_8uvid"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_g23r0"]
+viewport_path = NodePath("UIViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xfmes"]
+resource_local_to_scene = true
+transparency = 1
+no_depth_test = true
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.796078)
+albedo_texture = SubResource("ViewportTexture_g23r0")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ci6er"]
+bg_color = Color(0.111197, 0.111197, 0.111197, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rj43f"]
+radius = 3.5
+
+[node name="InteractionIndicator" type="Area3D"]
+script = ExtResource("1_8uvid")
+
+[node name="UISprite" type="Sprite3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_xfmes")
+modulate = Color(1, 1, 1, 0)
+billboard = 2
+texture = SubResource("ViewportTexture_g23r0")
+
+[node name="UIViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(453, 110)
+
+[node name="UI" type="Control" parent="UIViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UIViewport/UI"]
+visible = false
+layout_mode = 0
+offset_right = 418.0
+offset_bottom = 114.0
+
+[node name="Label" type="Label" parent="UIViewport/UI"]
+custom_minimum_size = Vector2(453, 110)
+layout_mode = 0
+offset_right = 453.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_ci6er")
+text = "Interact - F"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_rj43f")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

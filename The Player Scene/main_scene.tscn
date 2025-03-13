@@ -1,0 +1,621 @@
+[gd_scene load_steps=45 format=3 uid="uid://b83ygarc3r60v"]
+
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Scripts/Player.gd" id="1_phkkc"]
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Scripts/movement_controller.gd" id="1_t2242"]
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Scripts/animation_controller.gd" id="2_k8yv2"]
+[ext_resource type="Material" uid="uid://cpdpw14yr3gg8" path="res://The Player Scene/GameModules/Environment/whitebox.material" id="2_v1mj4"]
+[ext_resource type="Material" uid="uid://devfmiypql8kc" path="res://The Player Scene/GameModules/Environment/whitebox_dark.material" id="3_sli5h"]
+[ext_resource type="Resource" uid="uid://cwmqciitmqhmw" path="res://The Player Scene/GameModules/Player/JumpStates/air_jump.tres" id="4_syi8q"]
+[ext_resource type="Resource" uid="uid://b120v8fajov50" path="res://The Player Scene/GameModules/Player/MovementStates/run.tres" id="4_tpj1f"]
+[ext_resource type="Resource" uid="uid://b743vivnuil2t" path="res://The Player Scene/GameModules/Player/JumpStates/ground_jump.tres" id="5_1m34s"]
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Scripts/camera_controller.gd" id="5_hepan"]
+[ext_resource type="Resource" uid="uid://ct8cqvtmfmok6" path="res://The Player Scene/GameModules/Player/MovementStates/sprint.tres" id="5_k83y5"]
+[ext_resource type="Resource" uid="uid://bscum7xjqf202" path="res://The Player Scene/GameModules/Player/MovementStates/stand.tres" id="6_sfb1n"]
+[ext_resource type="Resource" uid="uid://n3g23r4byeml" path="res://The Player Scene/GameModules/Player/MovementStates/walk.tres" id="7_8xqcc"]
+[ext_resource type="PackedScene" uid="uid://cjptieviydgme" path="res://The Player Scene/Game Character/protagonist_model.tscn" id="7_od1wo"]
+[ext_resource type="Script" path="res://The Player Scene/Game Items/weapon_switcher.gd" id="10_mcpwj"]
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Battle Scripts/active_skill_controller.gd" id="10_p3vl3"]
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Battle Scripts/active_skill.gd" id="10_unys6"]
+[ext_resource type="PackedScene" uid="uid://tavqteswtsyb" path="res://The Player Scene/Game Items/Sword/sword.tscn" id="14_1m5un"]
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Battle Scripts/skills_container.gd" id="14_3l1c0"]
+[ext_resource type="Script" path="res://The Player Scene/Game Items/weapon.gd" id="14_3rpu3"]
+[ext_resource type="PackedScene" uid="uid://ca85f1hgahog5" path="res://The Player Scene/Game Items/Hammer/hammer.tscn" id="17_8vqlo"]
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Battle Scripts/Combo System/combo_tree.gd" id="19_23stu"]
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Battle Scripts/Combo System/primary_attack.gd" id="20_84hhu"]
+[ext_resource type="Script" path="res://The Player Scene/GameModules/Player/Battle Scripts/Combo System/secondary_attack.gd" id="21_cy7r7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4sd4o"]
+sky_top_color = Color(0.521569, 0.807843, 1, 1)
+sky_horizon_color = Color(0.717647, 0.866667, 0.968627, 1)
+ground_bottom_color = Color(0.717647, 0.866667, 0.968627, 1)
+ground_horizon_color = Color(0.717647, 0.866667, 0.968627, 1)
+
+[sub_resource type="Sky" id="Sky_a6d52"]
+sky_material = SubResource("ProceduralSkyMaterial_4sd4o")
+
+[sub_resource type="Environment" id="Environment_l6sxk"]
+background_mode = 2
+sky = SubResource("Sky_a6d52")
+ambient_light_source = 2
+ambient_light_color = Color(0.615686, 0.615686, 0.615686, 0.721569)
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 2
+glow_enabled = true
+glow_normalized = true
+glow_strength = 0.75
+fog_light_color = Color(0.168627, 0.145098, 0.254902, 1)
+fog_density = 0.0
+volumetric_fog_emission = Color(1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eyiaf"]
+radius = 0.45
+height = 1.5
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qi408"]
+animation = &"sword_1"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_ihuj7"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_s5tsl"]
+graph_offset = Vector2(-305.452, 33.445)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_qi408")
+nodes/Animation/position = Vector2(-20, 130)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_ihuj7")
+nodes/TimeScale/position = Vector2(150, 150)
+nodes/output/position = Vector2(320, 150)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h4pby"]
+animation = &"sword_2"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_qa1pg"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xnxe0"]
+graph_offset = Vector2(-352.499, -16.2607)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_h4pby")
+nodes/Animation/position = Vector2(-170, 110)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_qa1pg")
+nodes/TimeScale/position = Vector2(90, 110)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_a3pb4"]
+allow_transition_to_self = true
+input_0/name = "end_attack"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "attac_buffer_0"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "attack_buffer_1"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_n8qmh"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a1fx1"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_ubql1"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o2n28"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ne8jr"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yssce"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8pagu"]
+animation = &"sprint"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_wh27d"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_o2n28")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_ne8jr")
+blend_point_1/pos = 1.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_yssce")
+blend_point_2/pos = 2.0
+blend_point_3/node = SubResource("AnimationNodeAnimation_8pagu")
+blend_point_3/pos = 3.0
+min_space = 0.0
+max_space = 3.0
+snap = 1.0
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_q6wms"]
+graph_offset = Vector2(-136.404, 59.373)
+nodes/attack_buffer_0/node = SubResource("AnimationNodeBlendTree_s5tsl")
+nodes/attack_buffer_0/position = Vector2(330, 230)
+nodes/attack_buffer_1/node = SubResource("AnimationNodeBlendTree_xnxe0")
+nodes/attack_buffer_1/position = Vector2(380, 380)
+nodes/attack_transition/node = SubResource("AnimationNodeTransition_a3pb4")
+nodes/attack_transition/position = Vector2(580, 90)
+nodes/equip_weapon/node = SubResource("AnimationNodeOneShot_n8qmh")
+nodes/equip_weapon/position = Vector2(880, 20)
+nodes/equip_weapon_animation/node = SubResource("AnimationNodeAnimation_a1fx1")
+nodes/equip_weapon_animation/position = Vector2(940, 310)
+nodes/movement_anim_speed/node = SubResource("AnimationNodeTimeScale_ubql1")
+nodes/movement_anim_speed/position = Vector2(80, 130)
+nodes/movement_blend/node = SubResource("AnimationNodeBlendSpace1D_wh27d")
+nodes/movement_blend/position = Vector2(-150, 130)
+nodes/output/position = Vector2(1150, 60)
+node_connections = [&"attack_transition", 0, &"movement_anim_speed", &"attack_transition", 1, &"attack_buffer_0", &"attack_transition", 2, &"attack_buffer_1", &"equip_weapon", 0, &"attack_transition", &"equip_weapon", 1, &"equip_weapon_animation", &"movement_anim_speed", 0, &"movement_blend", &"output", 0, &"equip_weapon"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ykg3r"]
+radius = 0.07
+
+[node name="MainScene" type="Node3D"]
+
+[node name="Level" type="Node" parent="."]
+
+[node name="Floor" type="CSGBox3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("2_v1mj4")
+use_collision = true
+size = Vector3(1000, 1, 1000)
+
+[node name="Wall" type="CSGBox3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 14)
+material_override = ExtResource("3_sli5h")
+use_collision = true
+size = Vector3(10, 2, 4)
+
+[node name="Wall12" type="CSGBox3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.5, 8.5)
+material_override = ExtResource("3_sli5h")
+use_collision = true
+size = Vector3(3, 1, 1)
+
+[node name="Wall13" type="CSGBox3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 1.25, 8.5)
+material_override = ExtResource("3_sli5h")
+use_collision = true
+size = Vector3(3, 1.5, 1)
+
+[node name="Wall2" type="CSGBox3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 3, 14)
+material_override = ExtResource("3_sli5h")
+use_collision = true
+size = Vector3(7, 2, 2)
+
+[node name="Wall3" type="CSGBox3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 6, 18)
+material_override = ExtResource("3_sli5h")
+use_collision = true
+size = Vector3(3, 2, 2)
+
+[node name="Wall4" type="CSGBox3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 8, 22)
+material_override = ExtResource("3_sli5h")
+use_collision = true
+size = Vector3(3, 2, 2)
+
+[node name="Wall5" type="CSGBox3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 8.5, 27)
+material_override = ExtResource("3_sli5h")
+use_collision = true
+size = Vector3(5, 1, 4)
+
+[node name="Wall6" type="CSGBox3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 12.5, 27.5)
+material_override = ExtResource("3_sli5h")
+use_collision = true
+size = Vector3(3, 1, 3)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l6sxk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 4.67694, 0)
+light_energy = 0.7
+shadow_enabled = true
+shadow_opacity = 0.45
+sky_mode = 1
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.965926, -0.0771301, -0.247059, 0.0780351, 0.996932, -0.00614147, 0.246775, -0.0133471, 0.968981, 0, 4.67694, 0)
+light_energy = 0.03
+sky_mode = 1
+
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("weapon_switcher")]
+collision_layer = 0
+floor_snap_length = 0.0
+script = ExtResource("1_phkkc")
+weapon_switcher = NodePath("WeaponSwitcher")
+jump_states = {
+"air_jump": ExtResource("4_syi8q"),
+"ground_jump": ExtResource("5_1m34s")
+}
+movement_states = {
+"run": ExtResource("4_tpj1f"),
+"sprint": ExtResource("5_k83y5"),
+"stand": ExtResource("6_sfb1n"),
+"walk": ExtResource("7_8xqcc")
+}
+
+[node name="ActiveSkillController" type="Node" parent="Player" node_paths=PackedStringArray("player", "anim_tree", "skills_container", "movement_controller", "camera_controller")]
+script = ExtResource("10_p3vl3")
+player = NodePath("..")
+anim_tree = NodePath("../MeshRoot/AnimationTree")
+skills_container = NodePath("../MeshRoot/protagonist_model/metarig/Skeleton3D/sword/SkillsContainer")
+movement_controller = NodePath("../MovementController")
+camera_controller = NodePath("../CamRoot")
+
+[node name="MovementController" type="Node" parent="Player" node_paths=PackedStringArray("player", "mesh_root")]
+script = ExtResource("1_t2242")
+player = NodePath("..")
+mesh_root = NodePath("../MeshRoot")
+
+[node name="AnimationController" type="Node" parent="Player" node_paths=PackedStringArray("animation_tree", "player")]
+script = ExtResource("2_k8yv2")
+animation_tree = NodePath("../MeshRoot/AnimationTree")
+player = NodePath("..")
+
+[node name="WeaponSwitcher" type="Node" parent="Player" node_paths=PackedStringArray("weapon_switch_timer")]
+script = ExtResource("10_mcpwj")
+weapons = {
+"holster": NodePath("no_weapon"),
+"weapon_1": NodePath("../MeshRoot/protagonist_model/metarig/Skeleton3D/sword"),
+"weapon_2": NodePath("../MeshRoot/protagonist_model/metarig/Skeleton3D/hammer")
+}
+weapon_switch_timer = NodePath("WeaponSwitchTimer")
+
+[node name="WeaponSwitchTimer" type="Timer" parent="Player/WeaponSwitcher"]
+process_callback = 0
+wait_time = 0.5
+one_shot = true
+
+[node name="no_weapon" type="Node" parent="Player/WeaponSwitcher"]
+script = ExtResource("14_3rpu3")
+weapon_name = "no_weapon"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_eyiaf")
+
+[node name="MeshRoot" type="Node3D" parent="Player"]
+
+[node name="protagonist_model" parent="Player/MeshRoot" instance=ExtResource("7_od1wo")]
+
+[node name="Skeleton3D" parent="Player/MeshRoot/protagonist_model/metarig" index="0"]
+bones/0/position = Vector3(-0.00241852, 1.21898, 0.0210757)
+bones/0/rotation = Quaternion(0.120784, -0.00203932, -0.00666382, 0.992654)
+bones/1/rotation = Quaternion(-0.0644765, -5.84756e-08, -3.93786e-09, 0.997919)
+bones/2/rotation = Quaternion(-0.0706846, -0.02159, 0.00225118, 0.997263)
+bones/3/rotation = Quaternion(0.00834726, -0.0216822, 0.000940874, 0.99973)
+bones/4/position = Vector3(-2.80854e-09, 0.273736, -0.00178611)
+bones/4/rotation = Quaternion(-0.110584, 0.00993655, -0.0158443, 0.993691)
+bones/5/rotation = Quaternion(0.403208, -0.0103098, 0.0255573, 0.914693)
+bones/15/position = Vector3(0.0234345, 0.236904, 0.0617677)
+bones/15/rotation = Quaternion(-0.62958, -0.305417, -0.313761, 0.641797)
+bones/16/position = Vector3(0.0045554, 0.249838, -0.0600493)
+bones/16/rotation = Quaternion(-0.131869, 0.705274, -0.667772, 0.198192)
+bones/17/rotation = Quaternion(0.264553, -0.0753313, 0.114564, 0.954574)
+bones/18/rotation = Quaternion(-0.1163, 0.0524083, -0.101228, 0.986651)
+bones/18/scale = Vector3(0.999999, 0.999999, 0.999999)
+bones/19/rotation = Quaternion(0.0373139, 0.675786, 0.0327723, 0.735423)
+bones/20/position = Vector3(1.15626e-05, 0.0872145, -0.000782878)
+bones/20/rotation = Quaternion(0.338741, 0.066381, -0.0975087, 0.933456)
+bones/20/scale = Vector3(0.999999, 1.00002, 0.999981)
+bones/21/rotation = Quaternion(0.381778, -0.0156797, -0.0097968, 0.924069)
+bones/21/scale = Vector3(1, 1.00004, 0.999962)
+bones/22/rotation = Quaternion(0.264302, 0.0230475, -0.0255337, 0.963826)
+bones/22/scale = Vector3(1, 1.00005, 0.999951)
+bones/23/rotation = Quaternion(0.113739, 0.60211, 0.0877441, 0.785384)
+bones/24/rotation = Quaternion(0.274682, 0.106943, -0.123584, 0.947544)
+bones/25/rotation = Quaternion(0.0333221, -0.00233708, -0.0672516, 0.997177)
+bones/25/scale = Vector3(0.999998, 1, 1)
+bones/26/position = Vector3(-0.0018575, 0.0487772, 0.00333063)
+bones/26/rotation = Quaternion(-0.0168321, 0.69073, -0.000617959, 0.722916)
+bones/27/position = Vector3(1.71669e-08, 0.0815016, 3.27577e-07)
+bones/27/rotation = Quaternion(0.437165, 0.0387594, -0.0706491, 0.895764)
+bones/27/scale = Vector3(1, 1.00003, 0.999974)
+bones/28/rotation = Quaternion(0.32522, -0.0250175, -0.0316935, 0.944776)
+bones/28/scale = Vector3(0.999999, 1.00004, 0.999964)
+bones/29/rotation = Quaternion(0.187701, -0.00711168, -0.0313452, 0.9817)
+bones/29/scale = Vector3(0.999999, 1.00005, 0.999953)
+bones/30/position = Vector3(-0.00237635, 0.0472467, -0.0163031)
+bones/30/rotation = Quaternion(-0.0620598, 0.707539, -0.026105, 0.70346)
+bones/31/position = Vector3(4.10431e-05, 0.0863496, -3.44905e-06)
+bones/31/rotation = Quaternion(0.495068, -0.00307021, -0.0364408, 0.868084)
+bones/31/scale = Vector3(0.999998, 1.00003, 0.999972)
+bones/32/rotation = Quaternion(0.224772, -0.00954758, -0.0461942, 0.973269)
+bones/32/scale = Vector3(0.999999, 1.00003, 0.999966)
+bones/33/rotation = Quaternion(0.25106, -0.0240625, -0.0468851, 0.966536)
+bones/33/scale = Vector3(0.999997, 1.00006, 0.999937)
+bones/34/position = Vector3(-0.000494453, 0.0429883, -0.0288486)
+bones/34/rotation = Quaternion(-0.143814, 0.740102, -0.0837232, 0.65158)
+bones/35/rotation = Quaternion(0.638846, -0.0250387, -0.0200498, 0.768666)
+bones/35/scale = Vector3(0.999997, 1.00003, 0.99997)
+bones/36/rotation = Quaternion(0.230062, 0.0110541, -0.0419495, 0.972208)
+bones/36/scale = Vector3(1, 1.00003, 0.999969)
+bones/37/rotation = Quaternion(0.150027, -0.0226196, -0.0335348, 0.987854)
+bones/37/scale = Vector3(0.999996, 1.00005, 0.999954)
+bones/38/rotation = Quaternion(-0.582692, 0.374255, 0.344873, 0.633613)
+bones/39/position = Vector3(-0.0045551, 0.249838, -0.0600498)
+bones/39/rotation = Quaternion(-0.127661, -0.673628, 0.703274, 0.187974)
+bones/40/rotation = Quaternion(0.243665, 0.0782112, -0.114236, 0.959927)
+bones/40/scale = Vector3(1, 1, 0.999997)
+bones/41/rotation = Quaternion(-0.11187, 0.0190273, 0.00162897, 0.993539)
+bones/41/scale = Vector3(0.999997, 1, 1)
+bones/43/position = Vector3(-1.15517e-05, 0.0872144, -0.000782481)
+bones/43/rotation = Quaternion(0.255002, -0.0784629, 0.134784, 0.95428)
+bones/43/scale = Vector3(1, 1.00001, 0.99999)
+bones/44/rotation = Quaternion(0.399519, 0.0172167, 0.010579, 0.916502)
+bones/44/scale = Vector3(0.999999, 1.00004, 0.999961)
+bones/45/rotation = Quaternion(0.183969, -0.0261793, 0.0283622, 0.982174)
+bones/45/scale = Vector3(0.999999, 1.00004, 0.999963)
+bones/46/position = Vector3(0.0198265, 0.0190361, 0.0210217)
+bones/46/rotation = Quaternion(0.210533, -0.700193, -0.0108716, 0.68212)
+bones/46/scale = Vector3(1, 1, 1)
+bones/47/rotation = Quaternion(0.148472, -0.114163, 0.0903874, 0.978137)
+bones/47/scale = Vector3(0.999996, 1.00001, 0.999997)
+bones/48/rotation = Quaternion(-0.00163782, 0.0120986, 0.0698651, 0.997482)
+bones/48/scale = Vector3(0.999998, 1, 1)
+bones/50/position = Vector3(-3.8275e-08, 0.0815015, 1.66339e-07)
+bones/50/rotation = Quaternion(0.374582, -0.0438285, 0.116429, 0.91881)
+bones/50/scale = Vector3(1, 1.00001, 0.999986)
+bones/51/rotation = Quaternion(0.364705, 0.0271749, 0.0359655, 0.930031)
+bones/51/scale = Vector3(0.999998, 1.00004, 0.99996)
+bones/52/rotation = Quaternion(0.107378, 0.0144824, 0.0149198, 0.994001)
+bones/52/scale = Vector3(0.999999, 1.00004, 0.999961)
+bones/53/rotation = Quaternion(-0.0620598, -0.707539, 0.026105, 0.70346)
+bones/54/position = Vector3(-4.12055e-05, 0.0863504, -3.78779e-06)
+bones/54/rotation = Quaternion(0.457339, -0.00101033, 0.0685013, 0.88665)
+bones/54/scale = Vector3(0.999998, 1.00002, 0.999983)
+bones/55/rotation = Quaternion(0.262636, 0.0110494, 0.0532956, 0.963359)
+bones/55/scale = Vector3(0.999999, 1.00004, 0.999961)
+bones/56/rotation = Quaternion(0.231827, 0.0358841, 0.0336156, 0.971514)
+bones/56/scale = Vector3(0.999999, 1.00007, 0.999935)
+bones/57/rotation = Quaternion(-0.143814, -0.740102, 0.0837232, 0.65158)
+bones/58/position = Vector3(0.000371179, 0.089045, 0.0002786)
+bones/58/rotation = Quaternion(0.567182, 0.0375113, 0.0155145, 0.822591)
+bones/58/scale = Vector3(0.999998, 1.00002, 0.999983)
+bones/59/rotation = Quaternion(0.187482, 0.0107929, 0.057355, 0.980533)
+bones/59/scale = Vector3(0.999998, 1.00003, 0.999968)
+bones/60/rotation = Quaternion(0.153466, 0.0228683, 0.0346787, 0.98728)
+bones/60/scale = Vector3(0.999996, 1.00005, 0.999953)
+bones/61/rotation = Quaternion(-0.222994, -0.780742, -0.219126, 0.541018)
+bones/62/position = Vector3(-0.0525479, 0.147738, -0.0603419)
+bones/62/rotation = Quaternion(-0.541431, -0.429103, 0.717439, 0.0894636)
+bones/63/rotation = Quaternion(0.223966, -0.0642014, -0.071371, 0.969858)
+bones/64/rotation = Quaternion(-0.585866, -0.0645337, 0.0569488, 0.805825)
+bones/65/rotation = Quaternion(-0.0537829, 0.968555, -0.242775, -0.00828916)
+bones/67/position = Vector3(-0.0756538, 0.0106898, -0.147184)
+bones/67/rotation = Quaternion(-0.0645196, -0.706466, -0.048438, 0.703134)
+bones/68/rotation = Quaternion(0.0222252, 0.00429713, 0.00804573, 0.999711)
+bones/68/scale = Vector3(0.999938, 0.999956, 0.999944)
+bones/69/rotation = Quaternion(-0.0452686, 0.00345503, -0.0497249, 0.997731)
+bones/70/rotation = Quaternion(-0.0491839, 0.00140363, 0.00470809, 0.998778)
+bones/73/position = Vector3(-0.0753087, -0.00892964, 0.116921)
+bones/73/rotation = Quaternion(0.0164221, -0.693671, -0.131109, 0.708068)
+bones/74/rotation = Quaternion(-0.0242998, 0.00474634, -0.00544518, 0.999679)
+bones/74/scale = Vector3(0.999879, 0.999947, 0.999873)
+bones/75/rotation = Quaternion(0.00306537, -0.00180945, 0.010606, 0.999937)
+bones/75/scale = Vector3(0.999936, 0.999984, 0.999944)
+bones/76/rotation = Quaternion(-0.0362085, 0.00510696, -0.000828844, 0.999331)
+bones/79/rotation = Quaternion(-0.217514, 0.780047, 0.224124, 0.542202)
+bones/80/position = Vector3(0.0525481, 0.147739, -0.0603417)
+bones/80/rotation = Quaternion(0.470726, -0.459119, 0.749587, -0.0758053)
+bones/81/rotation = Quaternion(0.192719, 0.0232557, 0.0623919, 0.978992)
+bones/82/rotation = Quaternion(-0.551616, 0.0879129, -0.0648222, 0.826915)
+bones/83/rotation = Quaternion(0.05381, 0.969707, -0.238137, 0.00799898)
+bones/85/position = Vector3(-0.00243776, -0.0439432, -0.0799648)
+bones/85/rotation = Quaternion(-0.0665946, 0.713508, 0.0460347, 0.695954)
+bones/86/rotation = Quaternion(0.0938347, 0.0185596, 0.0167881, 0.995273)
+bones/86/scale = Vector3(0.999935, 0.999871, 0.999863)
+bones/87/rotation = Quaternion(-0.0596506, -0.0192831, 0.0391826, 0.997264)
+bones/87/scale = Vector3(0.999965, 0.999926, 0.999921)
+bones/88/rotation = Quaternion(-0.0476715, -0.00472444, -0.00968086, 0.998805)
+bones/91/position = Vector3(-0.0256184, -0.0146616, 0.106488)
+bones/91/rotation = Quaternion(0.0989508, 0.698768, 0.102401, 0.701032)
+bones/92/rotation = Quaternion(0.0253255, -0.0156762, 0.0254989, 0.999231)
+bones/92/scale = Vector3(0.999919, 0.999861, 0.999831)
+bones/93/rotation = Quaternion(-0.00833463, 0.00344201, -0.00770414, 0.99993)
+bones/96/position = Vector3(-0.0442648, 0.153025, 0.0909581)
+bones/96/rotation = Quaternion(0.700934, 0.127508, 0.676696, 0.185782)
+bones/97/rotation = Quaternion(-0.00313273, -0.000322032, 0.0229033, 0.999733)
+bones/97/scale = Vector3(0.999973, 0.999966, 0.999969)
+bones/98/rotation = Quaternion(-0.00414268, 0.000241419, -0.0351032, 0.999375)
+bones/98/scale = Vector3(0.999976, 0.999971, 0.999974)
+bones/99/rotation = Quaternion(0.00916777, -0.00142906, 0.00700228, 0.999933)
+bones/102/position = Vector3(-0.0325147, 0.0957953, -0.137647)
+bones/102/rotation = Quaternion(0.716608, 0.069249, 0.693922, 0.0122393)
+bones/103/rotation = Quaternion(0.0179957, -0.00232842, 0.00681808, 0.999812)
+bones/103/scale = Vector3(0.999996, 0.999994, 0.999992)
+bones/104/rotation = Quaternion(-0.0145104, 0.000352081, -0.00343336, 0.999889)
+bones/104/scale = Vector3(0.999989, 0.999987, 0.999986)
+bones/105/rotation = Quaternion(2.9909e-05, -3.28766e-08, 0.0274455, 0.999623)
+
+[node name="Cube_011" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D" index="0"]
+transform = Transform3D(0.1992, -0.00238496, -0.0238137, 0.000886444, 0.232721, -0.0132606, 0.0205417, 0.013085, 0.231502, 0.0310101, -0.0720801, -0.0327649)
+
+[node name="Cube_012" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D" index="1"]
+transform = Transform3D(0.1992, -0.00238496, -0.0238137, 0.000886444, 0.232721, -0.0132606, 0.0205417, 0.013085, 0.231502, 0.0310101, -0.0720801, -0.0327649)
+
+[node name="NurbsPath" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D" index="2"]
+transform = Transform3D(0.125284, -0.00464025, -0.0463326, 0.000557516, 0.452789, -0.0258001, 0.0129194, 0.0254586, 0.450417, 0.0310101, -0.0720801, -0.0327649)
+
+[node name="NurbsPath_001" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D" index="3"]
+transform = Transform3D(0.0051549, 0.994715, -0.102163, -0.50294, 0.00442777, -0.0568874, -0.0282783, 0.102579, 0.99314, 0.0310101, -0.0720801, -0.0327649)
+
+[node name="NurbsPath_003" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D" index="4"]
+transform = Transform3D(0.0051549, 0.994715, -0.102163, -0.50294, 0.00442777, -0.0568874, -0.0282783, 0.102579, 0.99314, 0.0310101, -0.0720801, -0.0327649)
+
+[node name="Plane_003" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D" index="5"]
+transform = Transform3D(0.0218163, -0.00225167, 2.47564e-05, 9.71366e-05, 0.000700133, -0.0219207, 0.00224971, 0.021805, 0.000706408, 0.0310101, -0.0720801, -0.0327649)
+
+[node name="Plane_004" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D" index="6"]
+transform = Transform3D(0.118675, -0.0121883, 0.00122098, 0.000528433, -0.00678687, -0.119111, 0.0122379, 0.118487, -0.006697, 0.0310101, -0.0720801, -0.0327649)
+
+[node name="Plane_005" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D" index="7"]
+transform = Transform3D(0.796643, 0.00196568, -0.0939045, 0.000344843, 0.801919, 0.0197118, 0.0939244, -0.0196167, 0.796402, 0.000926096, -0.0734243, 0.159697)
+
+[node name="sword" type="BoneAttachment3D" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D" index="22" node_paths=PackedStringArray("skills_container", "visual")]
+transform = Transform3D(-0.87082, -0.0203184, -0.49118, -0.129706, -0.954244, 0.269432, -0.47418, 0.298336, 0.82834, 0.289717, 1.31934, 0.277508)
+visible = false
+bone_name = "hand.L"
+bone_idx = 18
+script = ExtResource("14_3rpu3")
+weapon_name = "sword"
+skills_container = NodePath("SkillsContainer")
+visual = NodePath(".")
+
+[node name="sword" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/sword" instance=ExtResource("14_1m5un")]
+transform = Transform3D(-0.189599, 0.0362001, -0.350345, -0.219813, 0.298723, 0.149824, 0.275199, 0.263542, -0.121701, 0.0448432, 0.201355, 0.103104)
+
+[node name="SkillsContainer" type="Node3D" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/sword" node_paths=PackedStringArray("combo_tree", "active_skills")]
+transform = Transform3D(-0.870822, -0.129707, -0.474182, -0.0203186, -0.954245, 0.298337, -0.491181, 0.269433, 0.828341, 0.555008, 1.18207, -0.44304)
+script = ExtResource("14_3l1c0")
+combo_tree = NodePath("../ComboTree")
+active_skills = [NodePath("ActiveSkill_1"), NodePath("ActiveSkill_2")]
+
+[node name="ActiveSkill_1" type="Node3D" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/sword/SkillsContainer"]
+script = ExtResource("10_unys6")
+animation_name = &"sword_1"
+windup_duration = 0.1
+delivery_duration = 2.5
+recovery_duration = 0.5
+dash_duration = 0.15
+
+[node name="ActiveSkill_2" type="Node3D" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/sword/SkillsContainer"]
+script = ExtResource("10_unys6")
+animation_name = &"sword_2"
+windup_duration = 0.12
+delivery_duration = 1.875
+recovery_duration = 0.14
+dash_delay = 0.12
+
+[node name="ComboTree" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/sword"]
+script = ExtResource("19_23stu")
+
+[node name="PrimaryAttack" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/sword/ComboTree" node_paths=PackedStringArray("active_skill")]
+script = ExtResource("20_84hhu")
+active_skill = NodePath("../../SkillsContainer/ActiveSkill_1")
+
+[node name="SecondaryAttack" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/sword/ComboTree" node_paths=PackedStringArray("active_skill")]
+script = ExtResource("21_cy7r7")
+active_skill = NodePath("../../SkillsContainer/ActiveSkill_2")
+
+[node name="PrimaryAttack" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/sword/ComboTree/SecondaryAttack" node_paths=PackedStringArray("active_skill")]
+script = ExtResource("20_84hhu")
+active_skill = NodePath("../../../SkillsContainer/ActiveSkill_1")
+
+[node name="PrimaryAttack" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/sword/ComboTree/SecondaryAttack/PrimaryAttack" node_paths=PackedStringArray("active_skill")]
+script = ExtResource("20_84hhu")
+active_skill = NodePath("../../../../SkillsContainer/ActiveSkill_1")
+
+[node name="hammer" type="BoneAttachment3D" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D" index="23" node_paths=PackedStringArray("skills_container", "visual")]
+transform = Transform3D(-0.87082, -0.0203184, -0.49118, -0.129706, -0.954244, 0.269432, -0.47418, 0.298336, 0.82834, 0.289717, 1.31934, 0.277508)
+visible = false
+bone_name = "hand.L"
+bone_idx = 18
+script = ExtResource("14_3rpu3")
+weapon_name = "hammer"
+skills_container = NodePath("SkillsContainer")
+visual = NodePath(".")
+
+[node name="hammer" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer" instance=ExtResource("17_8vqlo")]
+transform = Transform3D(0.120425, -0.0672182, 0.375472, 0.3174, 0.236034, -0.0595443, -0.211554, 0.315864, 0.124399, 0.0941807, -0.352832, -0.531925)
+
+[node name="SkillsContainer" type="Node3D" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer" node_paths=PackedStringArray("combo_tree", "active_skills")]
+transform = Transform3D(-0.870822, -0.129707, -0.474182, -0.0203186, -0.954245, 0.298337, -0.491181, 0.269433, 0.828341, 0.555008, 1.18207, -0.44304)
+script = ExtResource("14_3l1c0")
+combo_tree = NodePath("../ComboTree")
+active_skills = [NodePath("ActiveSkill_1"), NodePath("ActiveSkill_2")]
+
+[node name="ActiveSkill_1" type="Node3D" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer/SkillsContainer"]
+script = ExtResource("10_unys6")
+animation_name = &"hammer_1"
+windup_duration = 0.1
+delivery_duration = 3.542
+recovery_duration = 0.1
+dash_duration = 0.15
+
+[node name="ActiveSkill_2" type="Node3D" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer/SkillsContainer"]
+script = ExtResource("10_unys6")
+animation_name = &"hammer_2"
+windup_duration = 0.1
+delivery_duration = 1.292
+recovery_duration = 0.1
+dash_duration = 0.15
+
+[node name="ComboTree" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer"]
+script = ExtResource("19_23stu")
+
+[node name="PrimaryAttack" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer/ComboTree" node_paths=PackedStringArray("active_skill")]
+script = ExtResource("20_84hhu")
+active_skill = NodePath("../../SkillsContainer/ActiveSkill_1")
+
+[node name="PrimaryAttack" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer/ComboTree/PrimaryAttack" node_paths=PackedStringArray("active_skill")]
+script = ExtResource("20_84hhu")
+active_skill = NodePath("../../../SkillsContainer/ActiveSkill_1")
+
+[node name="PrimaryAttack" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer/ComboTree/PrimaryAttack/PrimaryAttack" node_paths=PackedStringArray("active_skill")]
+script = ExtResource("20_84hhu")
+active_skill = NodePath("../../../../SkillsContainer/ActiveSkill_1")
+
+[node name="SecondaryAttack" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer/ComboTree/PrimaryAttack/PrimaryAttack" node_paths=PackedStringArray("active_skill")]
+script = ExtResource("21_cy7r7")
+active_skill = NodePath("../../../../SkillsContainer/ActiveSkill_2")
+
+[node name="SecondaryAttack" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer/ComboTree" node_paths=PackedStringArray("active_skill")]
+script = ExtResource("21_cy7r7")
+active_skill = NodePath("../../SkillsContainer/ActiveSkill_2")
+
+[node name="PrimaryAttack" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer/ComboTree/SecondaryAttack" node_paths=PackedStringArray("active_skill")]
+script = ExtResource("20_84hhu")
+active_skill = NodePath("../../../SkillsContainer/ActiveSkill_1")
+
+[node name="PrimaryAttack" type="Node" parent="Player/MeshRoot/protagonist_model/metarig/Skeleton3D/hammer/ComboTree/SecondaryAttack/PrimaryAttack" node_paths=PackedStringArray("active_skill")]
+script = ExtResource("20_84hhu")
+active_skill = NodePath("../../../../SkillsContainer/ActiveSkill_1")
+
+[node name="AnimationTree" type="AnimationTree" parent="Player/MeshRoot"]
+root_node = NodePath("../protagonist_model")
+tree_root = SubResource("AnimationNodeBlendTree_q6wms")
+anim_player = NodePath("../protagonist_model/AnimationPlayer")
+parameters/attack_buffer_0/TimeScale/scale = 1.0
+parameters/attack_buffer_1/TimeScale/scale = 1.0
+parameters/attack_transition/current_state = "end_attack"
+parameters/attack_transition/transition_request = ""
+parameters/attack_transition/current_index = 0
+parameters/equip_weapon/active = false
+parameters/equip_weapon/internal_active = false
+parameters/equip_weapon/request = 0
+parameters/movement_anim_speed/scale = 1.0
+parameters/movement_blend/blend_position = 0.00319149
+
+[node name="CamRoot" type="Node3D" parent="Player" node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+script = ExtResource("5_hepan")
+player = NodePath("..")
+
+[node name="CamYaw" type="Node3D" parent="Player/CamRoot"]
+
+[node name="CamPitch" type="Node3D" parent="Player/CamRoot/CamYaw"]
+transform = Transform3D(1, 0, 0, 0, 0.949655, -0.313296, 0, 0.313296, 0.949655, 0, 0, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CamRoot/CamYaw/CamPitch"]
+transform = Transform3D(-1, -1.77636e-15, -1.50996e-07, -1.77636e-15, 1, 0, 1.50996e-07, 2.68223e-22, -1, 0, 0, 0)
+shape = SubResource("SphereShape3D_ykg3r")
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="Player/CamRoot/CamYaw/CamPitch/SpringArm3D"]
+transform = Transform3D(1, 1.77636e-15, -9.9476e-14, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[connection signal="pressed_jump" from="Player" to="Player/MovementController" method="_jump"]
+[connection signal="pressed_primary_fire" from="Player" to="Player/ActiveSkillController" method="_on_pressed_primary_fire"]
+[connection signal="pressed_secondary_fire" from="Player" to="Player/ActiveSkillController" method="_on_pressed_secondary_fire"]
+[connection signal="set_movement_direction" from="Player" to="Player/MovementController" method="_on_set_movement_direction"]
+[connection signal="set_movement_state" from="Player" to="Player/ActiveSkillController" method="_on_changed_movement_state"]
+[connection signal="set_movement_state" from="Player" to="Player/MovementController" method="_on_set_movement_state"]
+[connection signal="set_movement_state" from="Player" to="Player/AnimationController" method="_on_set_movement_state"]
+[connection signal="set_movement_state" from="Player" to="Player/CamRoot" method="_on_set_movement_state"]
+[connection signal="switched_weapon" from="Player/WeaponSwitcher" to="Player/ActiveSkillController" method="_on_switched_weapon"]
+[connection signal="switched_weapon" from="Player/WeaponSwitcher" to="Player/AnimationController" method="_on_switched_weapon"]
+[connection signal="set_cam_rotation" from="Player/CamRoot" to="Player/MovementController" method="_on_set_camera_rotation"]
+
+[editable path="Player/MeshRoot/protagonist_model"]
