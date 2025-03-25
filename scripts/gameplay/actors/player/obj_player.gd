@@ -56,6 +56,9 @@ var attack_durations = [3.542, 1.3, 0.9/1.5 + 1.0, 1.15/1.2 + 0.7]
 var is_consuming = false
 
 func _ready() -> void:
+	mesh.rotation.y = rotation.y
+	rotation.y = 0
+
 	UserGlobal.PLAYER = self
 	UserGlobal.CircleMarked.append($model/BossCombatSystem/CIRCLE_STATE/MarkerRight)
 	UserGlobal.CircleMarked.append($model/BossCombatSystem/CIRCLE_STATE/MarkerLeft)
