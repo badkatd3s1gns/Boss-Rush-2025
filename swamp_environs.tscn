@@ -1,0 +1,102 @@
+[gd_scene load_steps=7 format=3 uid="uid://dql0gxlsbfu70"]
+
+[ext_resource type="PackedScene" uid="uid://cbh13e65tyofw" path="res://assets/Background_Assets/Swamp/Swamp_Environs.glb" id="1_iwo4x"]
+[ext_resource type="Shader" path="res://assets/Background_Assets/Swamp/brackishWater.gdshader" id="2_qoiku"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wx1k4"]
+height = 1.47676
+radius = 3.57961
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rek2l"]
+height = 0.877066
+radius = 2.75663
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yt2e1"]
+render_priority = 2
+shader = ExtResource("2_qoiku")
+shader_parameter/wave_1 = Vector4(0.3, 4, 0.2, 0.6)
+shader_parameter/wave_2 = Vector4(-0.26, -0.19, 0.01, 0.47)
+shader_parameter/wave_3 = Vector4(-7.67, 5.63, 0.1, 0.38)
+shader_parameter/wave_4 = Vector4(-0.42, -1.63, 0.1, 0.28)
+shader_parameter/wave_5 = Vector4(1.66, 0.07, 0.15, 1.81)
+shader_parameter/wave_6 = Vector4(1.2, 1.14, 0.01, 0.33)
+shader_parameter/wave_7 = Vector4(-1.6, 7.3, 0.11, 0.73)
+shader_parameter/wave_8 = Vector4(-0.42, -1.63, 0.15, 1.52)
+shader_parameter/time_factor = 2.105
+shader_parameter/noise_zoom = 2.0
+shader_parameter/noise_amp = 0.865
+shader_parameter/base_water_color = Color(0, 0.251874, 0, 1)
+shader_parameter/fresnel_water_color = Color(0.246836, 0.562836, 0.568328, 1)
+shader_parameter/deep_water_color = Color(0.00668755, 0.150003, 0.173915, 1)
+shader_parameter/shallow_water_color = Color(0.628101, 0.951123, 0.876373, 1)
+shader_parameter/beers_law = 0.5
+shader_parameter/depth_offset = -1.2
+shader_parameter/near = 7.0
+shader_parameter/far = 10000.0
+shader_parameter/edge_texture_scale = 1.17
+shader_parameter/edge_texture_offset = 1.99
+shader_parameter/edge_texture_speed = 0.885
+shader_parameter/edge_foam_intensity = 3.845
+shader_parameter/edge_fade_start = -0.49
+shader_parameter/edge_fade_end = 9.46
+shader_parameter/peak_height_threshold = 0.585
+shader_parameter/peak_color = Vector3(1, 1, 1)
+shader_parameter/peak_intensity = 1.0
+shader_parameter/foam_intensity = 1.0
+shader_parameter/foam_scale = 1.0
+shader_parameter/metallic = 0.6
+shader_parameter/roughness = 0.045
+shader_parameter/uv_scale_text_a = 0.1
+shader_parameter/uv_speed_text_a = Vector2(0.42, 0.3)
+shader_parameter/uv_scale_text_b = 0.6
+shader_parameter/uv_speed_text_b = Vector2(0.15, 0.1)
+shader_parameter/normal_strength = 1.0
+shader_parameter/uv_sampler_scale = 0.3
+shader_parameter/blend_factor = 0.28
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0tent"]
+height = 0.119898
+radius = 1.32347
+
+[node name="Swamp_Environs" instance=ExtResource("1_iwo4x")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube_007" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.101035, 0, 8.55095)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube_007/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.70703, 1.15185, 1.45456)
+shape = SubResource("CylinderShape3D_wx1k4")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Cube_007/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.65474, 1.15185, 0.00404692)
+shape = SubResource("CylinderShape3D_wx1k4")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Cube_007/StaticBody3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60384, 0.794872, -0.977848)
+shape = SubResource("CylinderShape3D_wx1k4")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Cube_007/StaticBody3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.51701, 0.705238, -6.86489)
+shape = SubResource("CylinderShape3D_rek2l")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Cube_007/StaticBody3D" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99609, 0.794872, -0.977848)
+shape = SubResource("CylinderShape3D_wx1k4")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Cube_007/StaticBody3D" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.08117, 0.705238, -6.86489)
+shape = SubResource("CylinderShape3D_rek2l")
+
+[node name="Circle_002" parent="." index="1"]
+transform = Transform3D(-129.473, 3.88337, 0, -3.88337, -129.473, 0, 0, 0, -129.531, -311.664, 3.78236, -68.853)
+material_override = SubResource("ShaderMaterial_yt2e1")
+transparency = 0.12
+extra_cull_margin = 4832.69
+lod_bias = 13.892
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Circle_002" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.32421, 0.480421, -1.63042)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Circle_002/StaticBody3D" index="0"]
+transform = Transform3D(1, 7.45058e-08, 0, -7.45058e-08, 1, 0, 0, 0, 1, 0.098877, -0.140643, 0.0846559)
+shape = SubResource("CylinderShape3D_0tent")

@@ -1,0 +1,261 @@
+[gd_scene load_steps=27 format=3 uid="uid://dqwy1e1y6whxv"]
+
+[ext_resource type="PackedScene" uid="uid://drpm6rpg1rt21" path="res://assets/Background_Assets/Beach/Beach_Tavern_Building.glb" id="1_ykrwe"]
+[ext_resource type="PackedScene" uid="uid://b72vec1vho3if" path="res://assets/Background_Assets/Beach/Beach_Tavern_Decking.glb" id="2_0hgdr"]
+[ext_resource type="PackedScene" uid="uid://tcdgb4nn8btm" path="res://assets/Background_Assets/Beach/Beach_Tavern_Outhouse.glb" id="3_kq6bm"]
+[ext_resource type="PackedScene" uid="uid://c7xwpu8ovcow8" path="res://assets/Background_Assets/Beach/Beach_Tavern_Shed.glb" id="4_pa4up"]
+[ext_resource type="PackedScene" uid="uid://b1x5ehde3oasu" path="res://assets/Background_Assets/Beach/Beach_Tavern_Table.glb" id="5_r3v3a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6cqie"]
+size = Vector3(21.1721, 11.3451, 13.4348)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_17omd"]
+height = 12.6264
+radius = 6.84933
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s6cwy"]
+size = Vector3(4.33282, 3.18469, 4.46143)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o0pre"]
+size = Vector3(18.8435, 17.188, 10.2808)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0tmqt"]
+radius = 5.37937
+height = 22.9416
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3o44h"]
+size = Vector3(10.6, 9.10468, 15.8904)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xym76"]
+height = 18.7395
+radius = 8.54073
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_joqyl"]
+height = 25.7891
+radius = 7.68018
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rbh67"]
+height = 54.5287
+radius = 1.31118
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1uxoa"]
+height = 41.3486
+radius = 0.726458
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sbf8i"]
+size = Vector3(74.8484, 1.87979, 34.3767)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0bfgw"]
+size = Vector3(46.2172, 1, 19.9782)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rqxrp"]
+size = Vector3(20.4766, 1, 12.8701)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_brpy6"]
+size = Vector3(19.3864, 1, 5.42972)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2me2b"]
+size = Vector3(6.64734, 1.18762, 20.8622)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kif8u"]
+height = 18.5121
+radius = 1.52546
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kog7t"]
+size = Vector3(2.60851, 0.508301, 10.2231)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_txg1u"]
+size = Vector3(6.6781, 12.1118, 8.92053)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p543c"]
+size = Vector3(12.9851, 1, 4.17041)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_30rhf"]
+size = Vector3(16.0864, 1, 6.40415)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_o7iyo"]
+height = 5.01962
+radius = 2.47285
+
+[node name="BeachBuildings" type="Node3D"]
+
+[node name="Beach_Tavern_Building" parent="." instance=ExtResource("1_ykrwe")]
+unique_name_in_owner = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Beach_Tavern_Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.4631, 11.7129, 0.347553)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Beach_Tavern_Building/StaticBody3D"]
+transform = Transform3D(1.3386, 0, -0.392652, 0, 1.395, 0, 0.392652, 0, 1.3386, 4.35947, 7.90524, 0.926802)
+shape = SubResource("BoxShape3D_6cqie")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Beach_Tavern_Building/StaticBody3D"]
+transform = Transform3D(1.66897, 0, -0.725898, 0, 1.82, 0, 0.725898, 0, 1.66897, -3.07696, 0.321739, 24.1117)
+shape = SubResource("CylinderShape3D_17omd")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Beach_Tavern_Building/StaticBody3D"]
+transform = Transform3D(4.72654, 0, -1.63089, 0, 5, 0, 1.63089, 0, 4.72654, 13.141, 2.14572, -18.867)
+shape = SubResource("BoxShape3D_s6cwy")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Beach_Tavern_Building/StaticBody3D"]
+transform = Transform3D(1.11869, -0.405497, -0.155226, 0.0036459, 0.437765, -1.1173, 0.434177, 1.04112, 0.409336, 19.0785, 0.000120163, -35.7305)
+shape = SubResource("BoxShape3D_o0pre")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Beach_Tavern_Building/StaticBody3D"]
+transform = Transform3D(0.846806, 0, -0.531901, 0, 1, 0, 0.531901, 0, 0.846806, 19.1357, -0.120903, 5.7694)
+shape = SubResource("CapsuleShape3D_0tmqt")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Beach_Tavern_Building/StaticBody3D"]
+transform = Transform3D(0.979925, 0, -0.199368, 0, 1, 0, 0.199368, 0, 0.979925, 10.1917, 13.5995, -14.0254)
+shape = SubResource("BoxShape3D_3o44h")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="Beach_Tavern_Building/StaticBody3D"]
+transform = Transform3D(-0.0538978, 1.3585, -0.312405, -1.33812, 0.037174, 0.392512, 0.390567, 0.314833, 1.30168, 3.85448, 20.61, 1.4873)
+shape = SubResource("CylinderShape3D_xym76")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="Beach_Tavern_Building/StaticBody3D"]
+transform = Transform3D(0.953748, 0.300178, -0.0160311, 1.68492e-09, 0.0533294, 0.998577, 0.300606, -0.952391, 0.0508628, 8.45668, 23.4607, -10.3315)
+shape = SubResource("CylinderShape3D_joqyl")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="Beach_Tavern_Building/StaticBody3D"]
+transform = Transform3D(0.999249, -0.0358716, 0.0146488, 0.038015, 0.98076, -0.191482, -0.00749822, 0.191895, 0.981387, 2.36764, 51.0126, 11.1552)
+shape = SubResource("CylinderShape3D_rbh67")
+
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="Beach_Tavern_Building/StaticBody3D"]
+transform = Transform3D(-0.208754, 0.895257, -0.393621, -0.977933, -0.194526, 0.0762075, -0.00834412, 0.400843, 0.916109, 6.62696, 47.5893, 9.28761)
+shape = SubResource("CylinderShape3D_1uxoa")
+
+[node name="Beach_Tavern_Decking" parent="." instance=ExtResource("2_0hgdr")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Beach_Tavern_Decking"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.6822, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(0.955742, 0, -0.294207, 0, 1, 0, 0.294207, 0, 0.955742, -16.8908, 5.68514, 3.83948)
+shape = SubResource("BoxShape3D_sbf8i")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(0.981507, 0, -0.191426, 0, 1, 0, 0.191426, 0, 0.981507, -28.6879, 8.16597, -13.6201)
+shape = SubResource("BoxShape3D_0bfgw")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(0.975669, 0, -0.21925, 0, 1, 0, 0.21925, 0, 0.975669, 8.74083, 6.24751, -13.1561)
+shape = SubResource("BoxShape3D_rqxrp")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(0.0479479, -0.0786767, 0.995747, -0.341997, 0.935345, 0.0903723, -0.938477, -0.344876, 0.0179406, 7.10956, 2.07033, -23.7161)
+shape = SubResource("BoxShape3D_brpy6")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(0.974586, 0, -0.224016, 0, 1, 0, 0.224016, 0, 0.974586, 16.338, 6.34011, -16.3759)
+shape = SubResource("BoxShape3D_2me2b")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.300545, 3.31623, 26.0629)
+shape = SubResource("CylinderShape3D_kif8u")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.266, 2.92241, 17.5585)
+shape = SubResource("CylinderShape3D_kif8u")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7751, 2.79145, 1.62222)
+shape = SubResource("CylinderShape3D_kif8u")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3513, 3.37281, -4.41158)
+shape = SubResource("CylinderShape3D_kif8u")
+
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.724, 1.72582, -14.8574)
+shape = SubResource("CylinderShape3D_kif8u")
+
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6787, 1.65042, -25.7265)
+shape = SubResource("CylinderShape3D_kif8u")
+
+[node name="CollisionShape3D12" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.2704, 5.36391, -44.3464)
+shape = SubResource("CylinderShape3D_kif8u")
+
+[node name="CollisionShape3D13" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.8451, 2.48586, -33.8878)
+shape = SubResource("CylinderShape3D_kif8u")
+
+[node name="CollisionShape3D14" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.5006, 2.06677, -10.9739)
+shape = SubResource("CylinderShape3D_kif8u")
+
+[node name="CollisionShape3D15" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.5897, 1.72151, 8.08741)
+shape = SubResource("CylinderShape3D_kif8u")
+
+[node name="CollisionShape3D16" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(0.970536, 0, -0.240957, -0.00566847, 0.999723, -0.0228317, 0.24089, 0.0235249, 0.970267, 22.3749, 3.10664, 11.9321)
+shape = SubResource("BoxShape3D_kog7t")
+
+[node name="CollisionShape3D17" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(0.970536, 0, -0.240957, 0.000534095, 0.999998, 0.00215125, 0.240956, -0.00221657, 0.970534, 24.0391, 1.50778, 12.4921)
+shape = SubResource("BoxShape3D_kog7t")
+
+[node name="CollisionShape3D18" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(0.970536, 0, -0.240957, 0.000534095, 0.999998, 0.00215125, 0.240956, -0.00221657, 0.970534, 25.1906, 0.151371, 12.8473)
+shape = SubResource("BoxShape3D_kog7t")
+
+[node name="CollisionShape3D19" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(0.970536, 0, -0.240957, 0.000534095, 0.999998, 0.00215125, 0.240956, -0.00221657, 0.970534, 27.0084, -1.38156, 13.1841)
+shape = SubResource("BoxShape3D_kog7t")
+
+[node name="CollisionShape3D20" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(-0.980376, -0.0350935, 0.193988, -0.0319151, 0.999301, 0.0194862, -0.194536, 0.0129125, -0.980811, -64.7508, 4.95781, 0.433201)
+shape = SubResource("BoxShape3D_kog7t")
+
+[node name="CollisionShape3D21" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(-0.973271, -0.0978449, 0.207776, -0.0993374, 0.995048, 0.0032644, -0.207066, -0.0174627, -0.978171, -66.5948, 3.35175, -0.505762)
+shape = SubResource("BoxShape3D_kog7t")
+
+[node name="CollisionShape3D22" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(-0.978657, -0.0520009, 0.198811, -0.0514878, 0.998644, 0.00775355, -0.198945, -0.00264823, -0.980007, -67.901, 1.65025, -0.912112)
+shape = SubResource("BoxShape3D_kog7t")
+
+[node name="CollisionShape3D23" type="CollisionShape3D" parent="Beach_Tavern_Decking/StaticBody3D"]
+transform = Transform3D(-0.974193, -0.115331, 0.194028, -0.115246, 0.993267, 0.0117657, -0.194078, -0.0108989, -0.980925, -69.6181, 0.050344, -1.53349)
+shape = SubResource("BoxShape3D_kog7t")
+
+[node name="Beach_Tavern_Outhouse" parent="." instance=ExtResource("3_kq6bm")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Beach_Tavern_Outhouse"]
+
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="Beach_Tavern_Outhouse/StaticBody3D"]
+transform = Transform3D(-0.217773, 0.0064503, -1.14244, 0.119103, 1.1568, -0.0161721, 1.13623, -0.120023, -0.217268, -65.3943, 3.7667, 27.95)
+shape = SubResource("BoxShape3D_6cqie")
+
+[node name="CollisionShape3D12" type="CollisionShape3D" parent="Beach_Tavern_Outhouse/StaticBody3D"]
+transform = Transform3D(-0.296443, -0.398747, -1.05155, -1.11714, -0.020755, 0.322804, -0.12944, 1.09234, -0.377724, -63.8553, 12.4059, 28.683)
+shape = SubResource("CylinderShape3D_xym76")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Beach_Tavern_Outhouse/StaticBody3D"]
+transform = Transform3D(0.982382, 0, -0.186884, 0, 1, 0, 0.186884, 0, 0.982382, -75.0512, 5.08936, 18.7588)
+shape = SubResource("BoxShape3D_txg1u")
+
+[node name="Beach_Tavern_Shed" parent="Beach_Tavern_Outhouse" instance=ExtResource("4_pa4up")]
+
+[node name="Beach_Tavern_Table" parent="." instance=ExtResource("5_r3v3a")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Beach_Tavern_Table"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Beach_Tavern_Table/StaticBody3D"]
+transform = Transform3D(0.963682, 0, -0.267053, 0, 1, 0, 0.267053, 0, 0.963682, -60.4063, 9.02917, 2.49095)
+shape = SubResource("BoxShape3D_p543c")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Beach_Tavern_Table/StaticBody3D"]
+transform = Transform3D(0.919116, -0.0497711, -0.39083, 0.00163033, 0.992461, -0.122553, 0.393983, 0.112003, 0.912268, -57.6538, 9.25541, -10.795)
+shape = SubResource("BoxShape3D_p543c")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Beach_Tavern_Table/StaticBody3D"]
+transform = Transform3D(0.960963, 0, -0.276677, 0, 1, 0, 0.276677, 0, 0.960963, -58.7278, 10.8179, -3.3513)
+shape = SubResource("BoxShape3D_30rhf")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Beach_Tavern_Table/StaticBody3D"]
+transform = Transform3D(-0.143656, -0.711437, -0.68791, 0.977332, 0.00724636, -0.211589, 0.155517, -0.702713, 0.694269, -55.7838, 14.6455, -1.9223)
+shape = SubResource("CylinderShape3D_o7iyo")

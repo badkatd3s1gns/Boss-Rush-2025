@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cplyxoo8e2g1g"]
+
+[ext_resource type="PackedScene" uid="uid://bc3ob4cfh6fi0" path="res://swamp_scene.tscn" id="1_vtm2o"]
+[ext_resource type="PackedScene" uid="uid://baykkaua8u1ap" path="res://assets/Background_Assets/Beach/Beach.tscn" id="2_t2s7u"]
+[ext_resource type="PackedScene" uid="uid://cjptieviydgme" path="res://The Player Scene/Game Character/protagonist_model.tscn" id="3_trep2"]
+
+[node name="FullMap" type="Node3D"]
+
+[node name="Swamp Scene" parent="." instance=ExtResource("1_vtm2o")]
+transform = Transform3D(0.000588638, 0, -0.048665, 0, 0.0486686, 0, 0.048665, 0, 0.000588638, 334.351, 0, -309.991)
+
+[node name="Beach Scene" parent="." instance=ExtResource("2_t2s7u")]
+transform = Transform3D(0.212421, 0, 0, 0, 0.212421, 0, 0, 0, 0.212421, 605.589, 0, 0)
+
+[node name="protagonist_model" parent="." instance=ExtResource("3_trep2")]
+transform = Transform3D(-0.00291491, 0, 0.463909, 0, 0.463918, 0, -0.463909, 0, -0.00291491, 604.605, 1.73023, 2.37834)
