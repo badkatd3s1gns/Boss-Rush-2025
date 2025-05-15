@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://blrr3o502pokv"]
+
+[ext_resource type="PackedScene" uid="uid://cisj80ebnnh2h" path="res://assets/Background_Assets/Swamp/Level_Swamp.glb" id="1_l0dmd"]
+[ext_resource type="Shader" path="res://assets/Background_Assets/Swamp/brackishWater.gdshader" id="2_iy0hl"]
+[ext_resource type="PackedScene" uid="uid://cjptieviydgme" path="res://The Player Scene/Game Character/protagonist_model.tscn" id="3_jsu0n"]
+[ext_resource type="PackedScene" uid="uid://butlbi88t6qgt" path="res://assets/Background_Assets/Town/Town_Sign_2.glb" id="4_fdcx2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c2edc"]
+render_priority = 0
+shader = ExtResource("2_iy0hl")
+shader_parameter/wave_1 = Vector4(0.3, 4, 0.2, 0.6)
+shader_parameter/wave_2 = Vector4(-0.26, -0.19, 0.01, 0.47)
+shader_parameter/wave_3 = Vector4(-7.67, 5.63, 0.1, 0.38)
+shader_parameter/wave_4 = Vector4(-0.42, -1.63, 0.1, 0.28)
+shader_parameter/wave_5 = Vector4(1.66, 0.07, 0.15, 1.81)
+shader_parameter/wave_6 = Vector4(1.2, 1.14, 0.01, 0.33)
+shader_parameter/wave_7 = Vector4(-1.6, 7.3, 0.11, 0.73)
+shader_parameter/wave_8 = Vector4(-0.42, -1.63, 0.15, 1.52)
+shader_parameter/time_factor = 2.5
+shader_parameter/noise_zoom = 2.0
+shader_parameter/noise_amp = 1.0
+shader_parameter/base_water_color = Color(0, 0.807843, 0.658824, 1)
+shader_parameter/fresnel_water_color = Color(0.517647, 0.952941, 0.980392, 1)
+shader_parameter/deep_water_color = Color(0, 0.301961, 0.352941, 1)
+shader_parameter/shallow_water_color = Color(0, 0.933333, 0.862745, 0.65098)
+shader_parameter/beers_law = 0.04
+shader_parameter/depth_offset = -0.32
+shader_parameter/near = 7.14
+shader_parameter/far = 10000.7
+shader_parameter/edge_texture_scale = 5.425
+shader_parameter/edge_texture_offset = 2.21
+shader_parameter/edge_texture_speed = 0.1
+shader_parameter/edge_foam_intensity = 4.435
+shader_parameter/edge_fade_start = -1.085
+shader_parameter/edge_fade_end = 7.11
+shader_parameter/peak_height_threshold = 1.0
+shader_parameter/peak_color = Vector3(1, 1, 1)
+shader_parameter/peak_intensity = 1.0
+shader_parameter/foam_intensity = 1.0
+shader_parameter/foam_scale = 1.0
+shader_parameter/metallic = 0.6
+shader_parameter/roughness = 0.045
+shader_parameter/uv_scale_text_a = 0.1
+shader_parameter/uv_speed_text_a = Vector2(0.42, 0.3)
+shader_parameter/uv_scale_text_b = 0.6
+shader_parameter/uv_speed_text_b = Vector2(0.15, 0.1)
+shader_parameter/normal_strength = 1.0
+shader_parameter/uv_sampler_scale = 0.3
+shader_parameter/blend_factor = 0.28
+
+[node name="Level_Swamp" instance=ExtResource("1_l0dmd")]
+
+[node name="Cube_036" parent="." index="30"]
+surface_material_override/0 = SubResource("ShaderMaterial_c2edc")
+
+[node name="Cube_008" parent="." index="31"]
+transform = Transform3D(-32.399, -1.81319, -1.11411, 1.73955, -29.6049, 5.45875, -1.4388, 5.03627, 31.6873, -327.273, 51.7898, 195.113)
+
+[node name="protagonist_model" parent="." index="104" instance=ExtResource("3_jsu0n")]
+transform = Transform3D(18.2614, 0, 0, 0, 18.2614, 0, 0, 0, 18.2614, -72.3732, -6.1351, 124.669)
+
+[node name="Town_Sign_2" parent="." index="105" instance=ExtResource("4_fdcx2")]
+transform = Transform3D(-6.64692, 0, 5.97463, 0, 8.93743, 0, -5.97463, 0, -6.64692, -113.181, 31.1954, 241.759)
