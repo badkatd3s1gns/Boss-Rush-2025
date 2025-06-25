@@ -55,10 +55,18 @@ var attack_durations = [3.542, 1.3, 0.9/1.5 + 1.0, 1.15/1.2 + 0.7]
 
 var is_consuming = false
 
+var starter_rotation_y = 0
+
+var aiming_amount = 0.0
+
 func _ready() -> void:
+	$AnimationTree.active = true
+	
+	$Model/AnimationPlayer.speed_scale = 0.1
+	starter_rotation_y = rotation.y
 	mesh.rotation.y = rotation.y
 	rotation.y = 0
-
+	
 	UserGlobal.PLAYER = self
 	UserGlobal.CircleMarked.append($model/BossCombatSystem/CIRCLE_STATE/MarkerRight)
 	UserGlobal.CircleMarked.append($model/BossCombatSystem/CIRCLE_STATE/MarkerLeft)
@@ -71,6 +79,7 @@ func _ready() -> void:
 	$UI/RadialMenu.add_icon_item(preload("res://assets/textures/heal_icon.webp"), "2D", 1)
 	$UI/RadialMenu.add_icon_item(null, "2D", 1)
 	$UI/RadialMenu.add_icon_item(null, "2D", 1)
+	#$UI/RadialMenu.show()
 	#$UI/RadialMenu.add_icon_item(POINTS_TEXTURE, "Points", 2)
 	#$UI/RadialMenu.add_icon_item(GRID_TEXTURE, "Grid", 3)
 	#$UI/RadialMenu.add_icon_item(SCALE_TEXTURE, "Scale", 4)
@@ -93,26 +102,29 @@ func _input(event: InputEvent) -> void:
 func heal():
 	player_health += 20
 	update_health()
+	update_bars()
 	
-	$Model/metarig/Skeleton3D/Hand/Weapons.hide()
+	$Model/metarig_001/Skeleton3D/Hand/Weapons.hide()
 	
 	is_consuming = true
-	await get_tree().create_timer(3.125).timeout
+	await get_tree().create_timer(0.9).timeout
+	$Healing.play()
+	await get_tree().create_timer(3.125-0.9).timeout
 	is_consuming = false
 	
-	$Model/metarig/Skeleton3D/Hand/Weapons.show()
+	$Model/metarig_001/Skeleton3D/Hand/Weapons.show()
 
 func heal_mana():
 	player_mana += 20
 	update_mana()
 	
-	$Model/metarig/Skeleton3D/Hand/Weapons.hide()
+	$Model/metarig_001/Skeleton3D/Hand/Weapons.hide()
 	
 	is_consuming = true
 	await get_tree().create_timer(4.58).timeout
 	is_consuming = false
 	
-	$Model/metarig/Skeleton3D/Hand/Weapons.show()
+	$Model/metarig_001/Skeleton3D/Hand/Weapons.show()
 
 func update_health():
 	await get_tree().create_timer(0.5).timeout
@@ -138,26 +150,23 @@ func update_bars():
 	if tween2: tween2.kill()
 	
 	tween2 = create_tween()
-	tween2.tween_property($Model/metarig/Skeleton3D/BoneAttachment3D/UI2, "transparency", 0.0, 0.7)
+	tween2.tween_property($Model/metarig_001/Skeleton3D/BoneAttachment3D/UI2, "transparency", 0.0, 0.7)
 	await get_tree().create_timer(4.0).timeout
 	tween2.kill()
 	tween2 = create_tween()
-	tween2.tween_property($Model/metarig/Skeleton3D/BoneAttachment3D/UI2, "transparency", 1.0, 0.7)
+	tween2.tween_property($Model/metarig_001/Skeleton3D/BoneAttachment3D/UI2, "transparency", 1.0, 0.7)
 	#tween2.play()
 
 func _physics_process(delta: float) -> void:
+	$Model/metarig_001/Skeleton3D/SpineIK.influence = lerp($Model/metarig_001/Skeleton3D/SpineIK.influence, aiming_amount, delta*8.0)
+	$AnimationTree.set("parameters/GunHolding/blend_amount", lerp($Model/metarig_001/Skeleton3D/SpineIK.influence, aiming_amount, delta*8.0))
+	
 	movement_controller(delta)
 	
 	match camera_controller.gameplay_index: # Gameplay Type Controller
 		GameplayMode.ThirdPerson:
 			CAN_MOVE = true
 			$StateMachine/ThirdPerson.start(delta)
-		GameplayMode.TopDown:
-			CAN_MOVE = false
-			$StateMachine/TopDown.start(delta)
-		GameplayMode.Platform:
-			CAN_MOVE = true
-			$StateMachine/Platform.start(delta)
 		
 	# Dodge mechanics timer
 	if is_dodging:
@@ -197,7 +206,11 @@ func _physics_process(delta: float) -> void:
 				heal_mana()
 				break
 	
-	$Model/metarig/SpineIKTarget.rotation.x = -$CameraController/Pivot.rotation.x
+	$Model/metarig_001/SpineIKTarget.rotation.x = -$CameraController/Pivot.rotation.x
+	#$Model/metarig_001/SpineIKTarget.rotation.y = -0.5
+	
+	
+	aiming_amount = 1.0 if Input.is_action_pressed("action_aiming") else 0.0
 	
 	if Input.is_action_just_pressed("action_roll") and !is_rolling:
 		is_rolling = true
@@ -207,8 +220,9 @@ func _physics_process(delta: float) -> void:
 		$CollisionShape3D.disabled = true
 		$CollisionShape3D2.disabled = false
 	
-	#if Input.is_action_just_pressed("toggle_inventory") and get_tree().current_scene.boss_fight:
-		#$UI/RadialMenu.open_menu(Vector2(810, 428.868))
+	if Input.is_action_just_pressed("toggle_inventory") and get_tree().current_scene.boss_fight:
+		return
+		$UI/RadialMenu.open_menu(Vector2(810, 428.868))
 	# Health bar
 	#$UI/HealthBar.value = player_health
 	#$UI/ManaBar.value = player_mana
@@ -227,7 +241,7 @@ func movement_controller(delta:float):
 		else:
 			velocity.x = lerp(velocity.x, move_dir.x * SPEED_WALK * (1.1 if get_tree().current_scene.boss_fight else 1), SPEED_ACCEL * delta)
 			velocity.z = lerp(velocity.z, move_dir.z * SPEED_WALK * (1.1 if get_tree().current_scene.boss_fight else 1), SPEED_ACCEL * delta)
-			
+		
 		if is_defending:
 			SPEED_WALK = 2
 		else:
@@ -249,6 +263,8 @@ func movement_controller(delta:float):
 		move_and_slide()
 		
 		if Input.get_vector("left", "right", "m_backward", "m_forward") and !Input.is_action_pressed("action_aiming") and !is_attacked:
+			$Model/metarig_001/Skeleton3D/SpineIK.start()
+			
 			mesh.rotation.z = lerp_angle(mesh.rotation.z, atan2(-velocity.x, -velocity.z) - mesh.rotation.y, delta*4.0)
 			
 			if Input.is_action_pressed("sprint"):
@@ -258,6 +274,15 @@ func movement_controller(delta:float):
 		
 		else:
 			mesh.rotation.z = lerp_angle(mesh.rotation.z, 0.0, delta*7.0)
+		
+		if Input.get_vector("left", "right", "m_backward", "m_forward") and !is_rolling:
+			if !$Footstep.playing: $Footstep.play()
+			if Input.is_action_pressed("sprint"):
+				$Footstep.pitch_scale = 1.32
+			else:
+				$Footstep.pitch_scale = 0.85
+		else:
+			if $Footstep.playing: $Footstep.stop()
 
 # //////////////////////////////////////////////////////////
 # /////////////////// MECHANICS ///////////////////////
@@ -292,7 +317,7 @@ func attack():
 	if is_attacked: return
 	#hit_enemy()
 	is_attacked = true
-	await get_tree().create_timer(attack_durations[$Model/metarig/Skeleton3D/Hand/Weapons.get_node($WeaponSwitcher.get_current_weapon_type()).get_index()*2 + combo]).timeout
+	await get_tree().create_timer(attack_durations[$Model/metarig_001/Skeleton3D/Hand/Weapons.get_node($WeaponSwitcher.get_current_weapon_type()).get_index()*2 + combo]).timeout
 	is_attacked = false
 	combo += 1
 	
@@ -310,6 +335,7 @@ func pick_item(it):
 	$UI/Inventory.add_item(it)
 
 func hit_enemy():
+	$Attack.play()
 	#await get_tree().create_timer(main_attack_delay[$WeaponSwitcher.current_weapon_index*2 + combo])
 	
 	if $Model/EnemyDetector.is_colliding():

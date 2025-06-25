@@ -517,7 +517,7 @@ func _update_item_icons():
 		if item != null:			
 			var sprite = item_nodes[ni]
 			ni += 1
-			sprite.position = coords[i]			
+			sprite.position = coords[i] - Vector2(32, 32)
 			sprite.scale = Vector2(icon_scale, icon_scale)
 			sprite.modulate = _get_color("IconModulation")
 		i=i+1

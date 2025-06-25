@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=3 uid="uid://chhaliys0med4"]
+
+[ext_resource type="PackedScene" uid="uid://42bhexjggnfv" path="res://Levels/Levels_Beach_Island.glb" id="1_v65og"]
+[ext_resource type="PackedScene" uid="uid://bqe5t3rjk4ng4" path="res://assets/Beach/Town_Sign_1.glb" id="2_0dpiw"]
+[ext_resource type="Shader" path="res://assets/Beach/Ocean.gdshader" id="3_17o77"]
+[ext_resource type="PackedScene" uid="uid://dqwy1e1y6whxv" path="res://assets/Beach/Beach_Buildings.tscn" id="4_2lq2n"]
+[ext_resource type="PackedScene" uid="uid://cjptieviydgme" path="res://The Player Scene/Game Character/protagonist_model.tscn" id="5_n0ash"]
+
+[sub_resource type="Gradient" id="Gradient_33bh1"]
+interpolation_mode = 2
+interpolation_color_space = 1
+offsets = PackedFloat32Array(0, 0.564356)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pkdoh"]
+frequency = 0.0037
+offset = Vector3(305.56, 0, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2vysw"]
+seamless = true
+seamless_blend_skirt = 0.532
+color_ramp = SubResource("Gradient_33bh1")
+noise = SubResource("FastNoiseLite_pkdoh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yetc2"]
+render_priority = 0
+shader = ExtResource("3_17o77")
+shader_parameter/wave_1 = Vector4(0.3, 4, 0.2, 0.6)
+shader_parameter/wave_2 = Vector4(-0.26, -0.19, 0.01, 0.47)
+shader_parameter/wave_3 = Vector4(-7.67, 5.63, 0.1, 0.38)
+shader_parameter/wave_4 = Vector4(-0.42, -1.63, 0.1, 0.28)
+shader_parameter/wave_5 = Vector4(7.02, 0.07, 0.15, 1.81)
+shader_parameter/wave_6 = Vector4(1.2, 1.14, 0.01, 0.33)
+shader_parameter/wave_7 = Vector4(-1.6, 7.3, 0.11, 0.73)
+shader_parameter/wave_8 = Vector4(-0.42, -1.63, 0.15, 1.52)
+shader_parameter/time_factor = 4.85
+shader_parameter/noise_zoom = 4.97
+shader_parameter/noise_amp = 0.325
+shader_parameter/base_water_color = Color(0.180392, 0.517647, 0.854902, 1)
+shader_parameter/fresnel_water_color = Color(0.0745098, 0.968627, 0.866667, 1)
+shader_parameter/deep_water_color = Color(0.00481649, 0.0935825, 0.213304, 1)
+shader_parameter/shallow_water_color = Color(0.4, 0.835294, 0.752941, 0.611765)
+shader_parameter/beers_law = 0.5
+shader_parameter/depth_offset = -1.2
+shader_parameter/near = 7.0
+shader_parameter/far = 10000.0
+shader_parameter/edge_texture_scale = 3.5
+shader_parameter/edge_texture_offset = 1.0
+shader_parameter/edge_texture_speed = 0.1
+shader_parameter/edge_foam_intensity = 2.0
+shader_parameter/edge_fade_start = -3.0
+shader_parameter/edge_fade_end = 6.6
+shader_parameter/edge_foam_texture = SubResource("NoiseTexture2D_2vysw")
+shader_parameter/peak_height_threshold = 6.185
+shader_parameter/peak_color = Vector3(5.875, 1, 1)
+shader_parameter/peak_intensity = 1.0
+shader_parameter/foam_intensity = 1.0
+shader_parameter/foam_scale = 1.0
+shader_parameter/metallic = 0.6
+shader_parameter/roughness = 0.045
+shader_parameter/uv_scale_text_a = 0.1
+shader_parameter/uv_speed_text_a = Vector2(0.42, 0.3)
+shader_parameter/uv_scale_text_b = 0.6
+shader_parameter/uv_speed_text_b = Vector2(0.15, 0.1)
+shader_parameter/normal_strength = 1.0
+shader_parameter/uv_sampler_scale = 0.3
+shader_parameter/blend_factor = 0.28
+
+[node name="Levels_Beach_Island" instance=ExtResource("1_v65og")]
+
+[node name="Town_Sign_1" parent="." index="0" instance=ExtResource("2_0dpiw")]
+transform = Transform3D(1.16523, 0, 3.58621, 0, 3.77076, 0, -3.58621, 0, 1.16523, -24.522, 9.10267, 91.4073)
+
+[node name="Sphere_002" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.63457, 0)
+
+[node name="Object_2_002" parent="Sketchfab_model_001/sea_obj_cleaner_materialmerger_gles" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.2576, 0)
+
+[node name="Object_2_004" parent="Sketchfab_model_001/sea_obj_cleaner_materialmerger_gles" index="3"]
+transform = Transform3D(1.14908, 0, 0, 0, 1.14908, 0, 0, 0, 1.14908, 0, 0, 0)
+
+[node name="Object_2_011" parent="Sketchfab_model_001/sea_obj_cleaner_materialmerger_gles" index="10"]
+transform = Transform3D(1, 0, 0, 0, 2.18674, 0, 0, 0, 1, 0, -14.9874, 0)
+
+[node name="Object_2_015" parent="Sketchfab_model_001/sea_obj_cleaner_materialmerger_gles" index="14"]
+transform = Transform3D(1, 0, 0, 0, 2.18674, 0, 0, 0, 1, 0, -8.9219, 0)
+
+[node name="Object_2_017" parent="Sketchfab_model_001/sea_obj_cleaner_materialmerger_gles" index="16"]
+transform = Transform3D(0.998341, 0, 0, 0, 2.18312, 0, 0, 0, 0.998341, 0, -7.73468, 0)
+
+[node name="Object_2_018" parent="Sketchfab_model_001/sea_obj_cleaner_materialmerger_gles" index="17"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.73723, 0)
+
+[node name="Object_2_020" parent="Sketchfab_model_001/sea_obj_cleaner_materialmerger_gles" index="19"]
+transform = Transform3D(0.997319, 0.0102124, 0.0724633, -0.0359663, 0.93077, 0.363833, -0.063731, -0.365464, 0.928641, -4.51276, -21.2748, -0.497944)
+
+[node name="Object_2_033" parent="Sketchfab_model_001/sea_obj_cleaner_materialmerger_gles" index="32"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.54661, -3.51211)
+
+[node name="Object_2_034" parent="Sketchfab_model_001/sea_obj_cleaner_materialmerger_gles" index="33"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.71122, -3.51211)
+
+[node name="Circle_001" parent="." index="223"]
+material_override = SubResource("ShaderMaterial_yetc2")
+transparency = 0.03
+extra_cull_margin = 4361.21
+
+[node name="BeachBuildings" parent="." index="237" instance=ExtResource("4_2lq2n")]
+
+[node name="protagonist_model" parent="." index="238" instance=ExtResource("5_n0ash")]
+transform = Transform3D(4.01944, 0, 0, 0, 4.01944, 0, 0, 0, 4.01944, 0, 7.77867, 10.4942)

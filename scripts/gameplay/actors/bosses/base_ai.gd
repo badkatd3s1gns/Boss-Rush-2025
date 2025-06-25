@@ -120,6 +120,8 @@ func take_damage(val):
 	if !can_take_damage or !alive: return
 	#val -= 6
 	
+	$Hurt.play(0.155)
+	
 	var dp = ((defensive_power+randf_range(0, extra_defense_power)) if is_defending else 0)
 	
 	if val < dp: 

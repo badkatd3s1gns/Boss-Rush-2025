@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=4 uid="uid://cdhdh8r8iitgg"]
+[gd_scene load_steps=96 format=4 uid="uid://cdhdh8r8iitgg"]
 
 [ext_resource type="PackedScene" uid="uid://cclpe7ls5xy0h" path="res://assets/prefabs/actors/player/obj_player.tscn" id="1_cdxev"]
 [ext_resource type="Script" path="res://scenes/tutorial/tutorial.gd" id="1_e10lx"]
@@ -14,6 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://ci8h638jnr8ah" path="res://Items/health_potion.tscn" id="12_hfd58"]
 [ext_resource type="Script" path="res://scenes/tutorial/boss_area.gd" id="13_txpcb"]
 [ext_resource type="PackedScene" uid="uid://y4h10ycw8nsm" path="res://Items/book.tscn" id="14_qp67s"]
+[ext_resource type="AudioStream" uid="uid://4vbrvtfx5n36" path="res://assets/forest-ambience-296528.mp3" id="15_ga4uv"]
+[ext_resource type="AudioStream" uid="uid://da2ft0db2ghx8" path="res://assets/audios/Boss Theme Idea 2 (1).mp3" id="16_pkem5"]
+[ext_resource type="AudioStream" uid="uid://dvwst8xudymt0" path="res://assets/audios/violoncello-attack-41389.mp3" id="17_vrpgj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mujca"]
 albedo_texture = ExtResource("3_l7do4")
@@ -66,12 +69,12 @@ points = PackedVector3Array(-2.5, -2.4775, -2.5, -2.5, 2.4775, -2.5, 2.5, -2.477
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jwn5l"]
 
-[sub_resource type="Sky" id="Sky_g2kt5"]
+[sub_resource type="Sky" id="Sky_qtfs8"]
 sky_material = SubResource("ProceduralSkyMaterial_jwn5l")
 
 [sub_resource type="Environment" id="Environment_3ilye"]
 background_mode = 2
-sky = SubResource("Sky_g2kt5")
+sky = SubResource("Sky_qtfs8")
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_o0gvx"]
 auto_exposure_enabled = true
@@ -820,7 +823,7 @@ script = ExtResource("1_e10lx")
 [node name="actors" type="Node" parent="."]
 
 [node name="obj_player" parent="actors" instance=ExtResource("1_cdxev")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54526, 18.1314)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 7.61, 18.131)
 
 [node name="map" type="Node" parent="."]
 
@@ -1272,5 +1275,17 @@ shape = SubResource("BoxShape3D_g0jh0")
 [node name="Book" parent="." instance=ExtResource("14_qp67s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.54229, 1.52024, -5.32704)
 item_name = "Book"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_ga4uv")
+volume_db = -5.0
+autoplay = true
+
+[node name="BossFight" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_pkem5")
+volume_db = -2.2
+
+[node name="BossInit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_vrpgj")
 
 [connection signal="body_entered" from="BossArea" to="BossArea" method="_on_body_entered"]

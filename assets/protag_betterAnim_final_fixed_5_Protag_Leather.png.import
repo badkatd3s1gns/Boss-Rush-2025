@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://0apm73nxr5p4"
+path.s3tc="res://.godot/imported/protag_betterAnim_final_fixed_5_Protag_Leather.png-5955a41b1d99c0f165bc7eaa10121261.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "1dbdd7794dd14b94211be788cd2ed190"
+}
+
+[deps]
+
+source_file="res://assets/protag_betterAnim_final_fixed_5_Protag_Leather.png"
+dest_files=["res://.godot/imported/protag_betterAnim_final_fixed_5_Protag_Leather.png-5955a41b1d99c0f165bc7eaa10121261.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=1
+roughness/src_normal="res://assets/protag_betterAnim_final_fixed_5_Protag_Leather.png"
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

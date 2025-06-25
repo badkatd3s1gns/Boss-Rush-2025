@@ -1,6 +1,6 @@
 extends Node
 
-@onready var weapons: Node3D = $"../Model/metarig/Skeleton3D/Hand/Weapons"
+@onready var weapons: Node3D = $"../Model/metarig_001/Skeleton3D/Hand/Weapons"
 var current_weapon_index:int = 0
 
 var weapon_list:Array[Node] = []

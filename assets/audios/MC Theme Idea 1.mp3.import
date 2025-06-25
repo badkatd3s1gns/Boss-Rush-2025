@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d3v726dax281s"
+path="res://.godot/imported/MC Theme Idea 1.mp3-c5e3c0cc45e59aad093e628d9d24e3b4.mp3str"
+
+[deps]
+
+source_file="res://assets/audios/MC Theme Idea 1.mp3"
+dest_files=["res://.godot/imported/MC Theme Idea 1.mp3-c5e3c0cc45e59aad093e628d9d24e3b4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

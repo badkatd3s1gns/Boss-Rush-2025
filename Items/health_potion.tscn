@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=4 uid="uid://ci8h638jnr8ah"]
+[gd_scene load_steps=17 format=4 uid="uid://ci8h638jnr8ah"]
 
 [ext_resource type="Script" path="res://Items/item.gd" id="1_gmevu"]
 [ext_resource type="Texture2D" uid="uid://txevubofbojg" path="res://The Player Scene/Game Items/potion_potion-potion transparency.png" id="2_0uvh7"]
 [ext_resource type="PackedScene" uid="uid://bbylrk3pgw6lx" path="res://The Player Scene/Game Items/Potion/potion.glb" id="2_ybwvn"]
 [ext_resource type="Texture2D" uid="uid://8fpuet5rmh2b" path="res://The Player Scene/Game Items/potion_cork Base Color.png" id="3_uqim7"]
+[ext_resource type="AudioStream" uid="uid://ctvshgigdjeyc" path="res://assets/audios/health-pickup-6860.mp3" id="5_bic8i"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fkptp"]
 resource_name = "potion.001"
@@ -194,5 +195,10 @@ texture_albedo = SubResource("GradientTexture2D_uih75")
 libraries = {
 "": SubResource("AnimationLibrary_02qjw")
 }
+
+[node name="PickingUp" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_bic8i")
+volume_db = -2.0
+max_db = 0.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

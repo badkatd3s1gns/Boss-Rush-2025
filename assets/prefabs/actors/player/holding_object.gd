@@ -22,6 +22,8 @@ func init(_item):
 			tex = preload("res://assets/textures/mana_icon.webp")
 		"Lute":
 			tex = preload("res://assets/textures/bass_icon.png")
+		"Pistol":
+			tex = preload("res://assets/textures/pistol_icon.png")
 		
 	texture = tex
 

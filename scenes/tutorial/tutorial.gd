@@ -31,12 +31,15 @@ func show_dialog(body, ncp_name, duration):
 	#$HUD/Dialogues/DialogueContainer/BodyLabel.text = str(body)
 
 func init_boss(bn, b):
+	$BossInit.play()
 	$HUD/BossHealthBar.show()
 	$HUD/BossHealthBar/BossName.text = bn
 	$HUD/BossHealthBar/ProgressBar.max_value = b
 	$HUD/BossHealthBar.max_value = b
 	$HUD/BossHealthBar/ProgressBar.value = b
 	$HUD/BossHealthBar.value = b
+	await get_tree().create_timer(1.5).timeout
+	$BossFight.play()
 
 func update_boss_health(h):
 	$HUD/BossHealthBar/ProgressBar.value = h

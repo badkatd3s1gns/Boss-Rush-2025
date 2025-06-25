@@ -9,6 +9,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if body == UserGlobal.PLAYER:
 		if body.has_method("pick_item"): 
+			$PickingUp.play()
 			body.pick_item(item_name)
 			$AnimationPlayer.play("disappear")
 			await $AnimationPlayer.animation_finished
